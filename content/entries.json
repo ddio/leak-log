@@ -19,6 +19,56 @@
     "timestampSource": "exif-median"
   },
   {
+    "id": "recfWbD9wXgjTokDb",
+    "eventTimestamp": "2026-06-23T10:18:00.000+08:00",
+    "uploadDate": "2026-06-23T16:12:12.000Z",
+    "title": "開始大量滴水",
+    "description": "開始滴水啦~上方磚頭有明顯水滴，右側牆角的衛生紙近全濕，開孔下方的衛生紙全濕。\n\n我也另外拿衛生紙敷了整面開孔上緣，但所有衛生紙，目前看來都還沒有吸到染劑（見倒數第二張）\n\n已重新舖了一整條衛生紙，牆壁角落的孔也塞了，下午會再去看一次。",
+    "keyEvents": [
+      "嚴重滲水"
+    ],
+    "photos": [
+      {
+        "web": "img/recfWbD9wXgjTokDb/web/01.jpg",
+        "thumb": "img/recfWbD9wXgjTokDb/thumb/01.jpg"
+      },
+      {
+        "web": "img/recfWbD9wXgjTokDb/web/02.jpg",
+        "thumb": "img/recfWbD9wXgjTokDb/thumb/02.jpg"
+      },
+      {
+        "web": "img/recfWbD9wXgjTokDb/web/03.jpg",
+        "thumb": "img/recfWbD9wXgjTokDb/thumb/03.jpg"
+      },
+      {
+        "web": "img/recfWbD9wXgjTokDb/web/04.jpg",
+        "thumb": "img/recfWbD9wXgjTokDb/thumb/04.jpg"
+      },
+      {
+        "web": "img/recfWbD9wXgjTokDb/web/05.jpg",
+        "thumb": "img/recfWbD9wXgjTokDb/thumb/05.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recNM2zB4nHyuvF77",
+    "eventTimestamp": "2026-06-22T16:37:11.000+08:00",
+    "uploadDate": "2026-06-23T16:08:53.000Z",
+    "title": "601 色素水測試",
+    "description": "上午 10：30 到 601 測試，下午 16:40 時，維修孔依然只是微溼\n\n浴缸→紅色四罐\n馬桶→藍色三罐\n臉盆→黃色四罐",
+    "keyEvents": [
+      "色素水測試"
+    ],
+    "photos": [
+      {
+        "web": "img/recNM2zB4nHyuvF77/web/01.jpg",
+        "thumb": "img/recNM2zB4nHyuvF77/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
     "id": "recoaXwlB6SWf5cNc",
     "eventTimestamp": "2026-06-20T11:30:00.000+08:00",
     "uploadDate": "2026-06-23T16:04:44.000Z",
@@ -32,6 +82,60 @@
       }
     ],
     "timestampSource": "manual"
+  },
+  {
+    "id": "recNqYXUWR9dOCq9b",
+    "eventTimestamp": "2026-06-15T14:00:00.000+08:00",
+    "uploadDate": "2026-06-23T15:58:57.000Z",
+    "title": "在管道間上緣鑿開維修孔",
+    "description": "開孔寬約 40 公分，畫線圈起的區域很濕，有水滴狀積水",
+    "keyEvents": [
+      "鑿開維修孔"
+    ],
+    "photos": [
+      {
+        "web": "img/recNqYXUWR9dOCq9b/web/01.jpg",
+        "thumb": "img/recNqYXUWR9dOCq9b/thumb/01.jpg"
+      },
+      {
+        "web": "img/recNqYXUWR9dOCq9b/web/02.jpg",
+        "thumb": "img/recNqYXUWR9dOCq9b/thumb/02.jpg"
+      },
+      {
+        "web": "img/recNqYXUWR9dOCq9b/web/03.jpg",
+        "thumb": "img/recNqYXUWR9dOCq9b/thumb/03.jpg"
+      },
+      {
+        "web": "img/recNqYXUWR9dOCq9b/web/04.jpg",
+        "thumb": "img/recNqYXUWR9dOCq9b/thumb/04.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recn2RUGTKl3gdYob",
+    "eventTimestamp": "2026-06-10T09:46:51.000+08:00",
+    "uploadDate": "2026-06-23T15:53:58.000Z",
+    "title": "水分計量小浴室天花板",
+    "description": "靠管道間的角落濕度很高，超過 900 ，這間房子一般牆面數值為 300 。\n\n天花板其他區域數值也高，大約 600 。",
+    "keyEvents": [
+      "水分量測"
+    ],
+    "photos": [
+      {
+        "web": "img/recn2RUGTKl3gdYob/web/01.jpg",
+        "thumb": "img/recn2RUGTKl3gdYob/thumb/01.jpg"
+      },
+      {
+        "web": "img/recn2RUGTKl3gdYob/web/02.jpg",
+        "thumb": "img/recn2RUGTKl3gdYob/thumb/02.jpg"
+      },
+      {
+        "web": "img/recn2RUGTKl3gdYob/web/03.jpg",
+        "thumb": "img/recn2RUGTKl3gdYob/thumb/03.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
   },
   {
     "id": "rec5tovJOHfbKrvAf",
@@ -106,6 +210,23 @@
     "timestampSource": "exif-median"
   },
   {
+    "id": "recQKTG1GrThnV23h",
+    "eventTimestamp": "2026-06-05T09:00:00.000+08:00",
+    "uploadDate": "2026-06-23T15:44:03.000Z",
+    "title": "發現管道間天花板漏水",
+    "description": "\n昨日，兩罐紅色色母+浴缸八分滿水測試\n\n今天發現昨天放在頂部的衛生紙濕透了，看來管道間這裡是有漏水了，原因可能有幾個：1，浴缸的暗管排水管有漏水，2，6F浴室地板的含水量應該是滿的，在管道間這個地方有縫，所以從此處漏出來；\n\n今天有下雨，可以再觀察一下是否頂部還有濕，可換新的衛生紙試試看；可能你明後天都要再過去現場，看一下衛生紙濕的情形；\n\n在好天氣時，也要在頂部放衛生紙測試會不會濕，當成對照組。",
+    "keyEvents": [
+      "色素水測試"
+    ],
+    "photos": [
+      {
+        "web": "img/recQKTG1GrThnV23h/web/01.jpg",
+        "thumb": "img/recQKTG1GrThnV23h/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
     "id": "recCnbUOlZDPMwuEr",
     "eventTimestamp": "2026-06-01T10:22:01.000+08:00",
     "uploadDate": "2026-06-23T15:39:59.000Z",
@@ -135,5 +256,22 @@
       }
     ],
     "timestampSource": "exif-median"
+  },
+  {
+    "id": "recPYRpQkpyKh5NXd",
+    "eventTimestamp": "2026-05-31T13:30:00.000+08:00",
+    "uploadDate": "2026-06-23T15:32:54.000Z",
+    "title": "大滲水後隔日",
+    "description": "昨天滲水的地方，今天比較乾了⋯⋯",
+    "keyEvents": [
+      "嚴重滲水"
+    ],
+    "photos": [
+      {
+        "web": "img/recPYRpQkpyKh5NXd/web/01.jpg",
+        "thumb": "img/recPYRpQkpyKh5NXd/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "manual"
   }
 ]
