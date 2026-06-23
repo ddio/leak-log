@@ -83,6 +83,8 @@ useSeoMeta({
         </div>
 
         <div class="mono footnote" data-testid="share-footnote">已移除 EXIF 地理資訊 · 最大邊 2048px · 提供縮圖</div>
+
+        <SiteFooter />
       </div>
     </article>
   </div>
