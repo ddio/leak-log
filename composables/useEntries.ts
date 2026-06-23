@@ -32,6 +32,62 @@ export function useEntry(id: string): Entry | undefined {
   return entries.find((e) => e.id === id)
 }
 
+/** 依「事件日期」分組（list 須已倒序；同日連續所以掃一遍即可） */
+export interface DayGroup {
+  key: string
+  monthDay: string
+  weekday: string
+  entries: Entry[]
+}
+export function groupByDay(list: Entry[]): DayGroup[] {
+  const groups: DayGroup[] = []
+  for (const e of list) {
+    const key = dateKey(e.eventTimestamp)
+    const last = groups[groups.length - 1]
+    if (last && last.key === key) {
+      last.entries.push(e)
+    } else {
+      groups.push({
+        key,
+        monthDay: formatMonthDay(e.eventTimestamp),
+        weekday: formatWeekday(e.eventTimestamp),
+        entries: [e],
+      })
+    }
+  }
+  return groups
+}
+
+/** header 用統計：總則數、追蹤天數（首筆到末筆事件日跨度）、最後更新 */
+export function useStats(list: Entry[]): { total: number; trackedDays: number; lastUpdated: string | null } {
+  if (list.length === 0) return { total: 0, trackedDays: 0, lastUpdated: null }
+  const times = list.map((e) => new Date(e.eventTimestamp).getTime())
+  const span = Math.max(...times) - Math.min(...times)
+  return {
+    total: list.length,
+    trackedDays: Math.round(span / 86400000) + 1,
+    lastUpdated: list[0].eventTimestamp, // list 倒序，第一筆最新
+  }
+}
+
+/** 把全站照片依紀錄倒序攤平成一維（無照片的紀錄不進入） */
+export interface FlatPhoto {
+  globalIndex: number
+  entry: Entry
+  photoIndex: number
+  web: string
+  thumb: string
+}
+export function flattenPhotos(list: Entry[]): FlatPhoto[] {
+  const out: FlatPhoto[] = []
+  for (const e of list) {
+    for (let i = 0; i < e.photos.length; i++) {
+      out.push({ globalIndex: out.length, entry: e, photoIndex: i, web: e.photos[i].web, thumb: e.photos[i].thumb })
+    }
+  }
+  return out
+}
+
 /** 站台內資源路徑（補 baseURL），給 <img src> 用 */
 export function useAssetUrl(path: string): string {
   const base = useRuntimeConfig().app.baseURL

@@ -1,0 +1,63 @@
+/* 設計 tokens：近黑白 + 單一藍強調（oklch）。來源見 design handoff README。 */
+:root {
+  /* 底色 */
+  --canvas: #eceae5;       /* 畫布外層 */
+  --card: #fbfbfa;         /* 卡片/頁面底 */
+  --panel: #f7f6f2;        /* 次要面板（info / legend） */
+  --stage: #f4f3ef;        /* lightbox 展示區 / 列 hover */
+
+  /* 文字 */
+  --text: #16181d;
+  --text-2: #2c2e34;
+  --text-3: #3a3c42;
+  --muted: #56585e;
+  --muted-2: #6c6f76;
+  --muted-3: #86847c;
+  --faint: #a3a199;        /* 佔位、計數 */
+  --faint-2: #b0aea5;
+  --faint-3: #b5b3aa;
+
+  /* 邊框 / 線 */
+  --border-strong: #e2e2dd;
+  --border: #ebebe6;
+  --border-2: #efeee9;
+  --axis: #d8d8d2;
+  --img-border: #e0e0db;
+
+  /* 強調藍 */
+  --accent: oklch(0.52 0.15 252);
+  --accent-text: oklch(0.45 0.15 252);
+  --accent-border: oklch(0.52 0.15 252 / 0.4);
+  --accent-bg: oklch(0.52 0.15 252 / 0.08);
+
+  /* 圓角 */
+  --r-card: 3px;
+  --r-sm: 2px;
+
+  /* 圖片條紋佔位（無圖 / 載入時） */
+  --stripe: repeating-linear-gradient(135deg, #e9e9e6 0 7px, #f3f3f1 7px 14px);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  background: var(--canvas);
+  color: var(--text);
+  font-family: 'Noto Sans TC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 技術後設資料用等寬字（時間戳、編號、檔名、計數、提示） */
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+a {
+  color: inherit;
+}
