@@ -1,132 +1,320 @@
 <script setup lang="ts">
-// 首頁：完整時間軸（entries 已由 pipeline 依事件時間新到舊排序）。
-// 視覺先求乾淨中性，正式設計之後用 Claude design 重做。
+// 時間軸首頁：依日分組、倒序。三欄（時間 / 軸 / 內容）。
+// 有照片的則 → 進 Lightbox；純文字則 → 進單則分享頁。
 const entries = useEntries()
+const groups = groupByDay(entries)
+const stats = useStats(entries)
+const lastGroupKey = groups.length ? groups[groups.length - 1].key : null // 最早一天 = 起點
 
 const base = useRuntimeConfig().app.baseURL.replace(/\/$/, '')
 const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`
+const linkOf = (e: { id: string; photos: unknown[] }) =>
+  e.photos.length ? `/view?r=${e.id}` : `/r/${e.id}`
 
 useSeoMeta({
-  title: '漏水紀錄',
-  description: '住處漏水點的長期觀察紀錄。',
-  ogTitle: '漏水紀錄',
-  ogDescription: '住處漏水點的長期觀察紀錄。',
+  title: '漏水狀況時間軸',
+  description: '住處漏水點的長期、多人協作觀察紀錄。',
+  ogTitle: '漏水狀況時間軸',
+  ogDescription: '住處漏水點的長期、多人協作觀察紀錄。',
 })
 </script>
 
 <template>
-  <main class="wrap">
-    <header class="head">
-      <h1>漏水紀錄</h1>
-      <p class="sub">共 {{ entries.length }} 則・時間軸由新到舊</p>
-    </header>
+  <div class="page">
+    <main class="card">
+      <header class="head">
+        <div class="head-top">
+          <span class="mono brand">LEAK-LOG</span>
+          <span class="mono count">{{ stats.total }} 則 · 追蹤 {{ stats.trackedDays }} 天</span>
+        </div>
+        <h1 class="title">漏水狀況時間軸</h1>
+        <p class="sub">
+          <template v-if="stats.lastUpdated">最後更新 {{ formatDateSlash(stats.lastUpdated) }} · </template>多人協作紀錄
+        </p>
+      </header>
 
-    <p v-if="entries.length === 0" class="empty">還沒有任何紀錄。</p>
+      <div class="legend">
+        <span class="leg"><span class="m-key" /> 關鍵事件</span>
+        <span class="leg"><span class="m-routine" /> 例行紀錄</span>
+      </div>
 
-    <ol class="timeline">
-      <li v-for="e in entries" :key="e.id" class="item">
-        <NuxtLink :to="`/entry/${e.id}`" class="card">
-          <time class="time">{{ formatDateTime(e.eventTimestamp) }}</time>
-          <h2 v-if="e.title" class="title">{{ e.title }}</h2>
-          <ul v-if="e.keyEvents.length" class="tags">
-            <li v-for="t in e.keyEvents" :key="t" class="tag">{{ t }}</li>
-          </ul>
-          <p v-if="e.description" class="desc">{{ e.description }}</p>
-          <div v-if="e.photos.length" class="thumbs">
-            <img
-              v-for="(p, i) in e.photos"
-              :key="i"
-              :src="asset(p.thumb)"
-              :alt="`${e.title || '紀錄'} 照片 ${i + 1}`"
-              loading="lazy"
-            />
+      <p v-if="!entries.length" class="empty">還沒有任何紀錄。</p>
+
+      <div class="timeline">
+        <template v-for="(g, gi) in groups" :key="g.key">
+          <!-- 日標題列 -->
+          <div class="row day" :class="{ first: gi === 0 }">
+            <div class="col-time mono day-date">{{ g.monthDay }}</div>
+            <div class="col-axis"><span class="m-day" /></div>
+            <div class="col-content day-meta">
+              <span class="wd">{{ g.weekday }}</span>
+              <span class="mono dn">· {{ g.entries.length }} 則</span>
+              <span v-if="g.key === lastGroupKey" class="mono dn">· 起點</span>
+            </div>
           </div>
-        </NuxtLink>
-      </li>
-    </ol>
-  </main>
+
+          <!-- 當日各則 -->
+          <NuxtLink
+            v-for="e in g.entries"
+            :key="e.id"
+            :to="linkOf(e)"
+            class="row entry"
+            :class="e.keyEvents.length ? 'is-key' : 'is-routine'"
+          >
+            <div class="col-time mono">{{ formatTime(e.eventTimestamp) }}</div>
+            <div class="col-axis">
+              <span :class="e.keyEvents.length ? 'm-key' : 'm-routine'" />
+            </div>
+            <div class="col-content">
+              <div v-if="e.keyEvents.length" class="tags">
+                <span v-for="t in e.keyEvents" :key="t" class="tag">
+                  <span class="mono kicker">關鍵</span>
+                  <span class="kw">{{ t }}</span>
+                </span>
+              </div>
+              <p class="desc">{{ e.description }}</p>
+              <div v-if="e.photos.length" class="thumbs">
+                <span v-for="(p, i) in e.photos" :key="i" class="thumb">
+                  <img :src="asset(p.thumb)" :alt="`照片 ${i + 1}`" loading="lazy" />
+                </span>
+              </div>
+            </div>
+          </NuxtLink>
+        </template>
+      </div>
+    </main>
+  </div>
 </template>
 
 <style scoped>
-.wrap {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 4rem;
-  font-family: system-ui, sans-serif;
-  color: #1a1a1a;
-}
-.head {
-  margin-bottom: 1.5rem;
-}
-.head h1 {
-  margin: 0;
-  font-size: 1.6rem;
-}
-.sub {
-  margin: 0.25rem 0 0;
-  color: #777;
-  font-size: 0.9rem;
-}
-.empty {
-  color: #777;
-}
-.timeline {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.page {
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  padding: clamp(0px, 3vw, 40px);
 }
 .card {
-  display: block;
-  padding: 1rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 760px;
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-card);
+  padding: clamp(20px, 4vw, 32px);
+}
+.head-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.brand {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.count {
+  font-size: 10px;
+  color: var(--faint);
+}
+.title {
+  margin: 10px 0 4px;
+  font-size: clamp(20px, 5vw, 23px);
+  font-weight: 700;
+}
+.sub {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--muted-3);
+}
+.legend {
+  display: flex;
+  gap: 18px;
+  background: var(--panel);
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  margin-bottom: 8px;
+}
+.leg {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.empty {
+  color: var(--muted-2);
+}
+
+/* markers */
+.m-day {
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+  border: 1.5px solid #a9a89f;
+  background: var(--card);
+}
+.m-key {
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.m-routine {
+  width: 6px;
+  height: 6px;
+  border: 1.5px solid #c4c3bc;
+  border-radius: 50%;
+  background: var(--card);
+}
+
+/* timeline rows */
+.timeline {
+  margin-top: 4px;
+}
+.row {
+  display: flex;
+}
+.col-time {
+  width: clamp(52px, 13vw, 62px);
+  flex: none;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.col-axis {
+  width: 26px;
+  flex: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.col-axis::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--axis);
+  transform: translateX(-50%);
+}
+.col-axis > span {
+  position: relative;
+  z-index: 1;
+}
+.col-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* day header row */
+.row.day .col-time {
+  padding-top: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1c20;
+}
+.row.day .col-axis > span {
+  margin-top: 19px;
+}
+.row.day .day-meta {
+  padding: 14px 0 6px;
+}
+.row.day:not(.first) {
+  border-top: 1px solid var(--border-2);
+  margin-top: 6px;
+}
+.day-meta .wd {
+  font-size: 13px;
+  color: var(--muted);
+}
+.day-meta .dn {
+  font-size: 11px;
+  color: var(--faint);
+}
+
+/* entry rows */
+.row.entry {
   text-decoration: none;
   color: inherit;
 }
-.card:hover {
-  border-color: #bbb;
+.row.entry:hover {
+  background: var(--stage);
 }
-.time {
-  color: #777;
-  font-size: 0.85rem;
+.row.entry .col-time {
+  padding-top: 12px;
 }
-.title {
-  margin: 0.25rem 0 0.5rem;
-  font-size: 1.1rem;
+.row.entry.is-key .col-axis > span {
+  margin-top: 13px;
+}
+.row.entry.is-routine .col-axis > span {
+  margin-top: 12px;
+}
+.row.entry .col-content {
+  padding: 10px 0 8px;
+}
+.row.entry.is-key .col-content {
+  padding: 11px 0 12px;
 }
 .tags {
-  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 0 0 0.5rem;
-  padding: 0;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 .tag {
-  font-size: 0.78rem;
-  background: #eef2ff;
-  color: #3b5bdb;
-  border-radius: 999px;
-  padding: 0.1rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r-sm);
+}
+.kicker {
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--accent-text);
+}
+.kw {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-text);
 }
 .desc {
-  margin: 0.5rem 0;
-  white-space: pre-wrap;
-  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+.is-key .desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+.is-routine .desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-3);
 }
 .thumbs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
+  gap: 6px;
+  margin-top: 8px;
 }
-.thumbs img {
-  width: 96px;
-  height: 96px;
+.thumb {
+  flex: 0 1 110px;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  border: 1px solid var(--img-border);
+  background: var(--stripe);
+}
+.is-key .thumb {
+  flex-basis: 120px;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 6px;
+  display: block;
 }
 </style>
