@@ -32,56 +32,57 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="page">
+  <div class="page" data-testid="share-page">
     <article class="card">
-      <NuxtLink to="/" class="back">
+      <NuxtLink to="/" class="back" data-testid="share-back">
         <span class="mono arrow">←</span>
         <span class="mono label">返回時間軸 · LEAK-LOG</span>
       </NuxtLink>
 
-      <div v-if="e.photos[0]" class="hero">
+      <div v-if="e.photos[0]" class="hero" data-testid="share-hero">
         <img :src="asset(e.photos[0].web)" alt="" />
         <span class="mono filename">{{ seqName(0) }}</span>
       </div>
 
       <div class="body">
         <div v-if="e.keyEvents.length" class="tags">
-          <span v-for="t in e.keyEvents" :key="t" class="tag">
+          <span v-for="t in e.keyEvents" :key="t" class="tag" data-testid="key-tag">
             <span class="mono kicker">關鍵</span>
             <span class="kw">{{ t }}</span>
           </span>
         </div>
 
-        <div class="mono datetime">{{ formatDateTimeSlash(e.eventTimestamp) }}</div>
+        <div class="mono datetime" data-testid="share-datetime">{{ formatDateTimeSlash(e.eventTimestamp) }}</div>
 
-        <p v-if="e.description" class="desc">{{ e.description }}</p>
+        <p v-if="e.description" class="desc" data-testid="share-desc">{{ e.description }}</p>
 
-        <div v-if="e.photos.length" class="photos">
+        <div v-if="e.photos.length" class="photos" data-testid="share-photos">
           <NuxtLink
             v-for="(p, i) in e.photos"
             :key="i"
             :to="`/view?r=${e.id}&p=${i}`"
             class="photo"
+            data-testid="share-photo"
           >
             <img :src="asset(p.thumb)" :alt="`照片 ${i + 1}`" loading="lazy" />
             <span class="mono filename sm">{{ seqName(i, '') }}</span>
           </NuxtLink>
         </div>
 
-        <div class="og">
+        <div class="og" data-testid="share-og">
           <div class="mono og-label">分享預覽</div>
-          <div class="og-card">
+          <div class="og-card" data-testid="share-og-card">
             <div class="og-thumb">
               <img v-if="e.photos[0]" :src="asset(e.photos[0].thumb)" alt="" />
             </div>
             <div class="og-text">
-              <div class="og-title">{{ shareTitle }}</div>
+              <div class="og-title" data-testid="share-og-title">{{ shareTitle }}</div>
               <div class="og-sub">漏水紀錄</div>
             </div>
           </div>
         </div>
 
-        <div class="mono footnote">已移除 EXIF 地理資訊 · 最大邊 2048px · 提供縮圖</div>
+        <div class="mono footnote" data-testid="share-footnote">已移除 EXIF 地理資訊 · 最大邊 2048px · 提供縮圖</div>
       </div>
     </article>
   </div>
