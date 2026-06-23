@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   ssr: true, // static generate（nuxt generate）會預先渲染每頁
 
+  css: ['~/assets/css/main.css'],
+
   app: {
     // GitHub Pages 專案站：https://ddio.github.io/leak-log/
     // 可用 NUXT_APP_BASE_URL 覆寫（之後綁自訂網域時）
@@ -12,6 +14,14 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ],
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap',
+        },
       ],
     },
   },
