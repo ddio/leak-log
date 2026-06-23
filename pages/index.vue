@@ -20,30 +20,30 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="page">
+  <div class="page" data-testid="timeline-page">
     <main class="card">
-      <header class="head">
+      <header class="head" data-testid="timeline-header">
         <div class="head-top">
-          <span class="mono brand">LEAK-LOG</span>
-          <span class="mono count">{{ stats.total }} 則 · 追蹤 {{ stats.trackedDays }} 天</span>
+          <span class="mono brand" data-testid="timeline-brand">LEAK-LOG</span>
+          <span class="mono count" data-testid="timeline-count">{{ stats.total }} 則 · 追蹤 {{ stats.trackedDays }} 天</span>
         </div>
-        <h1 class="title">漏水狀況時間軸</h1>
+        <h1 class="title" data-testid="timeline-title">漏水狀況時間軸</h1>
         <p class="sub">
           <template v-if="stats.lastUpdated">最後更新 {{ formatDateSlash(stats.lastUpdated) }} · </template>多人協作紀錄
         </p>
       </header>
 
-      <div class="legend">
+      <div class="legend" data-testid="timeline-legend">
         <span class="leg"><span class="m-key" /> 關鍵事件</span>
         <span class="leg"><span class="m-routine" /> 例行紀錄</span>
       </div>
 
-      <p v-if="!entries.length" class="empty">還沒有任何紀錄。</p>
+      <p v-if="!entries.length" class="empty" data-testid="timeline-empty">還沒有任何紀錄。</p>
 
-      <div class="timeline">
+      <div class="timeline" data-testid="timeline-list">
         <template v-for="(g, gi) in groups" :key="g.key">
           <!-- 日標題列 -->
-          <div class="row day" :class="{ first: gi === 0 }">
+          <div class="row day" :class="{ first: gi === 0 }" data-testid="timeline-day">
             <div class="col-time mono day-date">{{ g.monthDay }}</div>
             <div class="col-axis"><span class="m-day" /></div>
             <div class="col-content day-meta">
@@ -60,6 +60,8 @@ useSeoMeta({
             :to="linkOf(e)"
             class="row entry"
             :class="e.keyEvents.length ? 'is-key' : 'is-routine'"
+            data-testid="timeline-entry"
+            :data-record-id="e.id"
           >
             <div class="col-time mono">{{ formatTime(e.eventTimestamp) }}</div>
             <div class="col-axis">
@@ -67,14 +69,14 @@ useSeoMeta({
             </div>
             <div class="col-content">
               <div v-if="e.keyEvents.length" class="tags">
-                <span v-for="t in e.keyEvents" :key="t" class="tag">
+                <span v-for="t in e.keyEvents" :key="t" class="tag" data-testid="key-tag">
                   <span class="mono kicker">關鍵</span>
                   <span class="kw">{{ t }}</span>
                 </span>
               </div>
-              <p class="desc">{{ e.description }}</p>
-              <div v-if="e.photos.length" class="thumbs">
-                <span v-for="(p, i) in e.photos" :key="i" class="thumb">
+              <p class="desc" data-testid="entry-desc">{{ e.description }}</p>
+              <div v-if="e.photos.length" class="thumbs" data-testid="entry-thumbs">
+                <span v-for="(p, i) in e.photos" :key="i" class="thumb" data-testid="entry-thumb">
                   <img :src="asset(p.thumb)" :alt="`照片 ${i + 1}`" loading="lazy" />
                 </span>
               </div>

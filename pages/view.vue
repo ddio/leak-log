@@ -39,6 +39,13 @@ const jumpRecord = (delta: number) => {
   go(recordList[Math.max(0, Math.min(recordList.length - 1, p + delta))].first)
 }
 const goRecord = (entry: Entry) => go(recordList[posById.get(entry.id)!].first)
+
+// 手機版：rail 預設收合，點選後自動關起來
+const railOpen = ref(false)
+const selectRecord = (entry: Entry) => {
+  goRecord(entry)
+  railOpen.value = false
+}
 const goPhotoInRecord = (pi: number) => go(currentFirst.value + pi)
 const isCurrent = (entry: Entry) => entry.id === currentEntry.value?.id
 
@@ -72,25 +79,28 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
 </script>
 
 <template>
-  <div class="viewer">
+  <div class="viewer" data-testid="lightbox">
     <!-- top bar -->
-    <div class="topbar">
+    <div class="topbar" data-testid="lightbox-topbar">
       <div class="tb-left" v-if="len">
-        <span class="mono seq">{{ idx + 1 }}</span>
+        <button class="rail-toggle mono" data-testid="rail-toggle" :aria-expanded="railOpen" @click="railOpen = !railOpen">
+          ≡ 時間軸
+        </button>
+        <span class="mono seq" data-testid="lightbox-seq">{{ idx + 1 }}</span>
         <span class="mono total">/ {{ len }}</span>
         <span class="mono fname">{{ seqName(current.photoIndex) }}</span>
       </div>
       <div class="tb-right">
         <span class="mono hint">← → 照片 · ↑ ↓ 事件 · Esc 關閉</span>
-        <NuxtLink to="/" class="close" aria-label="關閉">×</NuxtLink>
+        <NuxtLink to="/" class="close" data-testid="lightbox-close" aria-label="關閉">×</NuxtLink>
       </div>
     </div>
 
-    <div v-if="!len" class="empty">尚無照片。</div>
+    <div v-if="!len" class="empty" data-testid="lightbox-empty">尚無照片。</div>
 
     <div v-else class="main">
-      <!-- 左欄：時間軸 rail -->
-      <aside class="rail">
+      <!-- 左欄：時間軸 rail（手機版可收合） -->
+      <aside class="rail" :class="{ open: railOpen }" data-testid="lightbox-rail">
         <div class="rail-title mono">時間軸 · {{ recordList.length }} 則</div>
         <div v-for="g in railGroups" :key="g.key" class="rail-day">
           <div class="rail-day-head mono">{{ g.monthDay }} {{ g.weekday }}</div>
@@ -99,7 +109,9 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
             :key="e.id"
             class="rail-row"
             :class="{ active: isCurrent(e), key: e.keyEvents.length }"
-            @click="goRecord(e)"
+            data-testid="rail-row"
+            :data-record-id="e.id"
+            @click="selectRecord(e)"
           >
             <span class="bar" />
             <span class="mono t">{{ formatTime(e.eventTimestamp) }}</span>
@@ -110,19 +122,20 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
       </aside>
 
       <!-- 中欄：stage -->
-      <section class="stage">
+      <section class="stage" data-testid="lightbox-stage">
         <div class="frame">
-          <img :src="asset(current.web)" :alt="`照片 ${current.photoIndex + 1}`" />
+          <img :src="asset(current.web)" :alt="`照片 ${current.photoIndex + 1}`" data-testid="lightbox-image" />
           <span class="mono stage-badge">本則 {{ current.photoIndex + 1 }} / {{ currentPhotos.length }}</span>
-          <button class="nav prev" :disabled="idx === 0" aria-label="上一張" @click="prevPhoto">‹</button>
-          <button class="nav next" :disabled="idx === len - 1" aria-label="下一張" @click="nextPhoto">›</button>
+          <button class="nav prev" data-testid="lightbox-prev" :disabled="idx === 0" aria-label="上一張" @click="prevPhoto">‹</button>
+          <button class="nav next" data-testid="lightbox-next" :disabled="idx === len - 1" aria-label="下一張" @click="nextPhoto">›</button>
         </div>
-        <div class="thumbs">
+        <div class="thumbs" data-testid="lightbox-thumbs">
           <button
             v-for="(p, i) in currentPhotos"
             :key="i"
             class="thumb"
             :class="{ on: i === current.photoIndex }"
+            data-testid="lightbox-thumb"
             @click="goPhotoInRecord(i)"
           >
             <img :src="asset(p.thumb)" :alt="`縮圖 ${i + 1}`" />
@@ -131,10 +144,10 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
       </section>
 
       <!-- 右欄：info -->
-      <aside class="info">
+      <aside class="info" data-testid="lightbox-info">
         <div class="mono i-date">{{ formatDateTimeSlash(currentEntry!.eventTimestamp) }}</div>
         <div v-if="currentEntry!.keyEvents.length" class="tags">
-          <span v-for="t in currentEntry!.keyEvents" :key="t" class="tag">
+          <span v-for="t in currentEntry!.keyEvents" :key="t" class="tag" data-testid="key-tag">
             <span class="mono kicker">關鍵</span>
             <span class="kw">{{ t }}</span>
           </span>
@@ -169,8 +182,22 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
 }
 .tb-left {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
+}
+/* rail 收合鈕：桌機隱藏，手機才出現 */
+.rail-toggle {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 4px 9px;
+  cursor: pointer;
+  margin-right: 4px;
 }
 .seq {
   font-size: 18px;
@@ -433,5 +460,23 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   color: var(--faint-3);
   margin-top: 18px;
   line-height: 1.6;
+}
+
+/* 手機版：rail 收進可收合選單，預設藏起來；stage / info 直接堆疊 */
+@media (max-width: 760px) {
+  .rail-toggle {
+    display: inline-flex;
+  }
+  .rail {
+    display: none;
+  }
+  .rail.open {
+    display: block;
+    flex-basis: 100%;
+    max-width: none;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
 }
 </style>
