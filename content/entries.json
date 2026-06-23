@@ -1,5 +1,96 @@
 [
   {
+    "id": "recYnc8p4kf0gk4n4",
+    "eventTimestamp": "2026-06-23T16:36:37.000+08:00",
+    "uploadDate": "2026-06-23T16:15:01.000Z",
+    "title": "持續大量滲水",
+    "description": "狀況跟早上一樣，第二張照片是\n\n1. 左邊：原本接水的衛生紙\n2. 中間：我直接拿衛生紙敷了一下滴水處\n3. 右邊：用開水沾濕的衛生紙，比較顏色是否不同",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recYnc8p4kf0gk4n4/web/01.jpg",
+        "thumb": "img/recYnc8p4kf0gk4n4/thumb/01.jpg"
+      },
+      {
+        "web": "img/recYnc8p4kf0gk4n4/web/02.jpg",
+        "thumb": "img/recYnc8p4kf0gk4n4/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recoaXwlB6SWf5cNc",
+    "eventTimestamp": "2026-06-20T11:30:00.000+08:00",
+    "uploadDate": "2026-06-23T16:04:44.000Z",
+    "title": "漏水狀況改善",
+    "description": "維修孔打開後，這裡的衛生紙沒有那麼濕了，現場看到的是禮拜三塞的，今天禮拜六，只有微微的濕",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recoaXwlB6SWf5cNc/web/01.jpg",
+        "thumb": "img/recoaXwlB6SWf5cNc/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "rec5tovJOHfbKrvAf",
+    "eventTimestamp": "2026-06-09T10:00:00.000+08:00",
+    "uploadDate": "2026-06-23T15:48:52.000Z",
+    "title": "持續觀察",
+    "description": "今天在現場的觀察，跟你之前的差不多，上方紅圈的衛生紙是全濕，中間是微濕，下方角落比之前又乾一點。我們再持續觀察。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/rec5tovJOHfbKrvAf/web/01.jpg",
+        "thumb": "img/rec5tovJOHfbKrvAf/thumb/01.jpg"
+      },
+      {
+        "web": "img/rec5tovJOHfbKrvAf/web/02.jpg",
+        "thumb": "img/rec5tovJOHfbKrvAf/thumb/02.jpg"
+      },
+      {
+        "web": "img/rec5tovJOHfbKrvAf/web/03.jpg",
+        "thumb": "img/rec5tovJOHfbKrvAf/thumb/03.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recijegSFKfJX2GkR",
+    "eventTimestamp": "2026-06-07T09:49:17.500+08:00",
+    "uploadDate": "2026-06-23T15:24:20.000Z",
+    "title": "A濕透 BC半濕 其餘乾乾，更換 ABC 衛生紙",
+    "description": "新貼的膠帶衛生紙掉落，幾乎是乾的，要塞了更多上緣的孔洞\n\n週五大雨，週六小雨，但管道間潮濕度沒有變化，可排除天氣造成漏水。\n",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recijegSFKfJX2GkR/web/01.jpg",
+        "thumb": "img/recijegSFKfJX2GkR/thumb/01.jpg"
+      },
+      {
+        "web": "img/recijegSFKfJX2GkR/web/02.jpg",
+        "thumb": "img/recijegSFKfJX2GkR/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recRfgThSETCrsbVt",
+    "eventTimestamp": "2026-06-06T07:39:34.000+08:00",
+    "uploadDate": "2026-06-23T15:23:06.000Z",
+    "title": "A濕透 BC半濕 其餘乾乾，更換 ABC 衛生紙，新貼的膠帶衛生紙也乾乾",
+    "description": "",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recRfgThSETCrsbVt/web/01.jpg",
+        "thumb": "img/recRfgThSETCrsbVt/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
     "id": "recksypWIY4a5SHnR",
     "eventTimestamp": "2026-06-05T16:38:53.000+08:00",
     "uploadDate": "2026-06-23T15:21:45.000Z",
@@ -10,6 +101,37 @@
       {
         "web": "img/recksypWIY4a5SHnR/web/01.jpg",
         "thumb": "img/recksypWIY4a5SHnR/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recCnbUOlZDPMwuEr",
+    "eventTimestamp": "2026-06-01T10:22:01.000+08:00",
+    "uploadDate": "2026-06-23T15:39:59.000Z",
+    "title": "管道間施工負責人與樓上訪談",
+    "description": "配管方式如上面手繪，但應該需要人工解釋。\n\n601 住戶有偶爾泡澡的習慣，也是平日主要是用的浴室，上方照片是這戶的浴缸，看起來排水沒接好。\n\n701 則是只有偶爾上廁所，因為兩戶打通，主要使用 703 （另一個管道間）的廁所。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recCnbUOlZDPMwuEr/web/01.jpg",
+        "thumb": "img/recCnbUOlZDPMwuEr/thumb/01.jpg"
+      },
+      {
+        "web": "img/recCnbUOlZDPMwuEr/web/02.jpg",
+        "thumb": "img/recCnbUOlZDPMwuEr/thumb/02.jpg"
+      },
+      {
+        "web": "img/recCnbUOlZDPMwuEr/web/03.jpg",
+        "thumb": "img/recCnbUOlZDPMwuEr/thumb/03.jpg"
+      },
+      {
+        "web": "img/recCnbUOlZDPMwuEr/web/04.jpg",
+        "thumb": "img/recCnbUOlZDPMwuEr/thumb/04.jpg"
+      },
+      {
+        "web": "img/recCnbUOlZDPMwuEr/web/05.jpg",
+        "thumb": "img/recCnbUOlZDPMwuEr/thumb/05.jpg"
       }
     ],
     "timestampSource": "exif-median"
