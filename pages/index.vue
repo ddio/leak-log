@@ -54,25 +54,36 @@ useSeoMeta({
           </div>
 
           <!-- 當日各則 -->
-          <NuxtLink
+          <div
             v-for="e in g.entries"
             :key="e.id"
-            :to="linkOf(e)"
             class="row entry"
             :class="e.keyEvents.length ? 'is-key' : 'is-routine'"
             data-testid="timeline-entry"
             :data-record-id="e.id"
           >
+            <!-- 覆蓋整列的主連結（→ Lightbox / 純文字則 → 分享頁） -->
+            <NuxtLink
+              :to="linkOf(e)"
+              class="row-cover"
+              data-testid="entry-open"
+              :aria-label="`檢視 ${formatTime(e.eventTimestamp)} 這則`"
+            />
             <div class="col-time mono">{{ formatTime(e.eventTimestamp) }}</div>
             <div class="col-axis">
               <span :class="e.keyEvents.length ? 'm-key' : 'm-routine'" />
             </div>
             <div class="col-content">
-              <div v-if="e.keyEvents.length" class="tags">
-                <span v-for="t in e.keyEvents" :key="t" class="tag" data-testid="key-tag">
-                  <span class="mono kicker">關鍵</span>
-                  <span class="kw">{{ t }}</span>
-                </span>
+              <div class="meta-line">
+                <div v-if="e.keyEvents.length" class="tags">
+                  <span v-for="t in e.keyEvents" :key="t" class="tag" data-testid="key-tag">
+                    <span class="mono kicker">關鍵</span>
+                    <span class="kw">{{ t }}</span>
+                  </span>
+                </div>
+                <NuxtLink :to="`/r/${e.id}`" class="share-link mono" data-testid="entry-share">
+                  分享頁 ↗
+                </NuxtLink>
               </div>
               <p class="desc" data-testid="entry-desc">{{ e.description }}</p>
               <div v-if="e.photos.length" class="thumbs" data-testid="entry-thumbs">
@@ -81,9 +92,11 @@ useSeoMeta({
                 </span>
               </div>
             </div>
-          </NuxtLink>
+          </div>
         </template>
       </div>
+
+      <SiteFooter />
     </main>
   </div>
 </template>
@@ -237,11 +250,17 @@ useSeoMeta({
 
 /* entry rows */
 .row.entry {
-  text-decoration: none;
+  position: relative;
   color: inherit;
 }
 .row.entry:hover {
   background: var(--stage);
+}
+/* 覆蓋整列的主連結（stretched link），讓整列可點又不巢狀 <a> */
+.row-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 .row.entry .col-time {
   padding-top: 12px;
@@ -258,11 +277,30 @@ useSeoMeta({
 .row.entry.is-key .col-content {
   padding: 11px 0 12px;
 }
+/* tags 與分享頁連結同一行，連結靠右 */
+.meta-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 8px;
+}
+.share-link {
+  margin-left: auto;
+  position: relative;
+  z-index: 2; /* 蓋在 row-cover 之上，可獨立點擊 */
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--accent-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.share-link:hover {
+  text-decoration: underline;
 }
 .tag {
   display: inline-flex;
