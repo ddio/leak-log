@@ -64,3 +64,13 @@ export function formatWeekday(iso: string): string {
 export function seqName(index: number, ext = '.jpg'): string {
   return String(index + 1).padStart(2, '0') + ext
 }
+
+/** 穩定的分日 key（Asia/Taipei）：2026-06-23 */
+export function dateKey(iso: string): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Taipei',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(iso))
+}
