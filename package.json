@@ -1,0 +1,15 @@
+{
+  "name": "leak-log",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:drive": "tsx scripts/test-drive.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "googleapis": "^144.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}
