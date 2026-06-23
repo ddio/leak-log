@@ -58,8 +58,10 @@ async function main(): Promise<void> {
   }
 
   console.log(`\n完成：成功 ${ok}、跳過(缺時間) ${skipped}、失敗 ${failed}`);
-  // 缺時間是使用者可修正的狀況，不讓 CI 失敗；真正錯誤才回非零
-  if (failed > 0) process.exitCode = 1;
+  // 單筆失敗/缺時間不讓整個 job 失敗——否則後續 commit/deploy 會被略過，
+  // 導致本輪已標記「已同步」的成功資料永遠不會 commit。失敗已寫進 Airtable
+  // 同步錯誤欄、也印在 log；未同步的下輪 cron 會自動重試。
+  // 只有系統性錯誤（fetchUnsynced 失敗等）會在 main().catch 讓 CI 失敗。
 }
 
 main().catch((e) => {

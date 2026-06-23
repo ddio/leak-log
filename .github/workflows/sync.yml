@@ -1,0 +1,72 @@
+name: sync
+
+# 觸發：
+#  - schedule：每 15 分鐘輪詢 Airtable（只在 default branch=main 生效）
+#  - workflow_dispatch：手動立即跑一次（Actions 頁或 gh CLI）
+#  - repository_dispatch：保留給未來主動推送（免費 Airtable 無法用，先留著）
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [airtable-submit]
+
+# 同時間只跑一個，避免兩個 run 一起 push 衝突
+concurrency:
+  group: leak-log-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write # commit 處理後的圖片 + entries.json 回 repo
+  pages: write # 部署 GitHub Pages
+  id-token: write # deploy-pages 需要
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sync Airtable -> Drive + entries.json + images
+        run: npm run sync
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: app9qIBi0OyA9LM9I
+          AIRTABLE_TABLE_ID: tbly6tnHFnzvXViZH
+          GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+          GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+          GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
+          GDRIVE_ROOT_FOLDER_ID: 18u8mw-ec6gY9KtyswisNJS6qkK_aIEl5
+
+      - name: Commit synced data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p public/img
+          git add public/img content/entries.json
+          if git diff --cached --quiet; then
+            echo "沒有資料變更，跳過 commit"
+          else
+            git commit -m "data: sync from airtable"
+            git push
+          fi
+
+      - name: Build static site
+        run: npm run generate
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
