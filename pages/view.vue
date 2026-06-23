@@ -39,6 +39,13 @@ const jumpRecord = (delta: number) => {
   go(recordList[Math.max(0, Math.min(recordList.length - 1, p + delta))].first)
 }
 const goRecord = (entry: Entry) => go(recordList[posById.get(entry.id)!].first)
+
+// 手機版：rail 預設收合，點選後自動關起來
+const railOpen = ref(false)
+const selectRecord = (entry: Entry) => {
+  goRecord(entry)
+  railOpen.value = false
+}
 const goPhotoInRecord = (pi: number) => go(currentFirst.value + pi)
 const isCurrent = (entry: Entry) => entry.id === currentEntry.value?.id
 
@@ -76,6 +83,9 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
     <!-- top bar -->
     <div class="topbar">
       <div class="tb-left" v-if="len">
+        <button class="rail-toggle mono" :aria-expanded="railOpen" @click="railOpen = !railOpen">
+          ≡ 時間軸
+        </button>
         <span class="mono seq">{{ idx + 1 }}</span>
         <span class="mono total">/ {{ len }}</span>
         <span class="mono fname">{{ seqName(current.photoIndex) }}</span>
@@ -89,8 +99,8 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
     <div v-if="!len" class="empty">尚無照片。</div>
 
     <div v-else class="main">
-      <!-- 左欄：時間軸 rail -->
-      <aside class="rail">
+      <!-- 左欄：時間軸 rail（手機版可收合） -->
+      <aside class="rail" :class="{ open: railOpen }">
         <div class="rail-title mono">時間軸 · {{ recordList.length }} 則</div>
         <div v-for="g in railGroups" :key="g.key" class="rail-day">
           <div class="rail-day-head mono">{{ g.monthDay }} {{ g.weekday }}</div>
@@ -99,7 +109,7 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
             :key="e.id"
             class="rail-row"
             :class="{ active: isCurrent(e), key: e.keyEvents.length }"
-            @click="goRecord(e)"
+            @click="selectRecord(e)"
           >
             <span class="bar" />
             <span class="mono t">{{ formatTime(e.eventTimestamp) }}</span>
@@ -169,8 +179,22 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
 }
 .tb-left {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
+}
+/* rail 收合鈕：桌機隱藏，手機才出現 */
+.rail-toggle {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 4px 9px;
+  cursor: pointer;
+  margin-right: 4px;
 }
 .seq {
   font-size: 18px;
@@ -433,5 +457,23 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   color: var(--faint-3);
   margin-top: 18px;
   line-height: 1.6;
+}
+
+/* 手機版：rail 收進可收合選單，預設藏起來；stage / info 直接堆疊 */
+@media (max-width: 760px) {
+  .rail-toggle {
+    display: inline-flex;
+  }
+  .rail {
+    display: none;
+  }
+  .rail.open {
+    display: block;
+    flex-basis: 100%;
+    max-width: none;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
 }
 </style>
