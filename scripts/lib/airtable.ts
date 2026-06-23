@@ -44,6 +44,19 @@ async function listAll(): Promise<RawRecord[]> {
   return records;
 }
 
+/**
+ * 關鍵事件欄位正規化成 string[]。
+ * 相容兩種來源：multipleSelects（回傳陣列）與 single line text（回傳字串，
+ * 以逗號 / 、/ ， 分隔多個事件）。
+ */
+function parseKeyEvents(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map(String).map((s) => s.trim()).filter(Boolean);
+  if (typeof value === 'string') {
+    return value.split(/[,、，]/).map((s) => s.trim()).filter(Boolean);
+  }
+  return [];
+}
+
 function toRecord(raw: RawRecord): AirtableRecord {
   const f = raw.fields ?? {};
   const photosRaw = (f[FIELDS.photos] as Array<Record<string, string>>) ?? [];
@@ -58,7 +71,7 @@ function toRecord(raw: RawRecord): AirtableRecord {
     title: (f[FIELDS.title] as string) ?? '',
     description: (f[FIELDS.description] as string) ?? '',
     manualTimestamp: (f[FIELDS.manualTimestamp] as string) ?? null,
-    keyEvents: (f[FIELDS.keyEvents] as string[]) ?? [],
+    keyEvents: parseKeyEvents(f[FIELDS.keyEvents]),
     photos,
     createdTime: raw.createdTime,
   };
