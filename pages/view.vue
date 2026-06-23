@@ -49,6 +49,33 @@ const selectRecord = (entry: Entry) => {
 const goPhotoInRecord = (pi: number) => go(currentFirst.value + pi)
 const isCurrent = (entry: Entry) => entry.id === currentEntry.value?.id
 
+// 切換照片時顯示 loading skeleton，避免停在前一張讓人以為卡住
+const stageImg = ref<HTMLImageElement | null>(null)
+const imgLoading = ref(false)
+watch(idx, () => {
+  imgLoading.value = true
+})
+const onImgLoad = () => {
+  imgLoading.value = false
+}
+
+// 手機觸控：水平滑動切換照片（左滑下一張、右滑上一張）
+let touchX = 0
+let touchY = 0
+const onTouchStart = (e: TouchEvent) => {
+  touchX = e.changedTouches[0].clientX
+  touchY = e.changedTouches[0].clientY
+}
+const onTouchEnd = (e: TouchEvent) => {
+  const dx = e.changedTouches[0].clientX - touchX
+  const dy = e.changedTouches[0].clientY - touchY
+  // 水平位移夠大、且明顯比垂直大（避免和捲動衝突）才觸發
+  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) nextPhoto()
+    else prevPhoto()
+  }
+}
+
 function onKey(e: KeyboardEvent) {
   if (e.key === 'ArrowRight') {
     e.preventDefault()
@@ -72,6 +99,8 @@ onMounted(() => {
   const r = route.query.r as string | undefined
   const p = parseInt(route.query.p as string)
   if (r && posById.has(r)) go(recordList[posById.get(r)!].first + (Number.isNaN(p) ? 0 : p))
+  // 首張若尚未載入完成（慢速網路），也顯示 skeleton
+  if (stageImg.value && !stageImg.value.complete) imgLoading.value = true
 })
 onUnmounted(() => window.removeEventListener('keydown', onKey))
 
@@ -123,8 +152,24 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
 
       <!-- 中欄：stage -->
       <section class="stage" data-testid="lightbox-stage">
-        <div class="frame">
-          <img :src="asset(current.web)" :alt="`照片 ${current.photoIndex + 1}`" data-testid="lightbox-image" />
+        <div
+          class="frame"
+          :class="{ 'is-loading': imgLoading }"
+          @touchstart.passive="onTouchStart"
+          @touchend.passive="onTouchEnd"
+        >
+          <img
+            ref="stageImg"
+            :src="asset(current.web)"
+            :alt="`照片 ${current.photoIndex + 1}`"
+            data-testid="lightbox-image"
+            :class="{ loading: imgLoading }"
+            @load="onImgLoad"
+            @error="onImgLoad"
+          />
+          <div v-if="imgLoading" class="img-skeleton" data-testid="lightbox-skeleton">
+            <span class="mono">載入中…</span>
+          </div>
           <span class="mono stage-badge">本則 {{ current.photoIndex + 1 }} / {{ currentPhotos.length }}</span>
           <button class="nav prev" data-testid="lightbox-prev" :disabled="idx === 0" aria-label="上一張" @click="prevPhoto">‹</button>
           <button class="nav next" data-testid="lightbox-next" :disabled="idx === len - 1" aria-label="下一張" @click="nextPhoto">›</button>
@@ -329,11 +374,45 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   position: relative;
   display: flex;
 }
+/* 載入中：撐出最小尺寸讓 skeleton 有面積（含首張未載入時） */
+.frame.is-loading {
+  min-width: min(90vw, 560px);
+  min-height: min(50vh, 420px);
+}
 .frame img {
   max-width: min(100%, 2048px);
   max-height: 80vh;
   object-fit: contain;
   display: block;
+}
+.frame img.loading {
+  opacity: 0;
+}
+.img-skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--stripe);
+  border-radius: var(--r-sm);
+  animation: skeleton-pulse 1.1s ease-in-out infinite;
+}
+.img-skeleton .mono {
+  font-size: 11px;
+  color: var(--muted-2);
+  background: rgba(251, 251, 250, 0.8);
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+}
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 .stage-badge {
   position: absolute;
