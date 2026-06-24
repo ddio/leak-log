@@ -1,5 +1,42 @@
 [
   {
+    "id": "recAOR2t1yplUONJ7",
+    "eventTimestamp": "2026-06-24T10:00:00.000+08:00",
+    "uploadDate": "2026-06-24T02:40:19.000Z",
+    "title": "刮除浮起的油漆",
+    "description": "1. 這一區的牆磚也是濕的，衛生紙全濕（見最後一張）\n2. 靠管道間牆角的的天花油漆浮起來了，把油漆鏟掉之後再用水分機去量，含水率增加了，圈起處最高到 1000",
+    "keyEvents": [
+      "水分測量"
+    ],
+    "photos": [
+      {
+        "web": "img/recAOR2t1yplUONJ7/web/01.jpg",
+        "thumb": "img/recAOR2t1yplUONJ7/thumb/01.jpg"
+      },
+      {
+        "web": "img/recAOR2t1yplUONJ7/web/02.jpg",
+        "thumb": "img/recAOR2t1yplUONJ7/thumb/02.jpg"
+      },
+      {
+        "web": "img/recAOR2t1yplUONJ7/web/03.jpg",
+        "thumb": "img/recAOR2t1yplUONJ7/thumb/03.jpg"
+      },
+      {
+        "web": "img/recAOR2t1yplUONJ7/web/04.jpg",
+        "thumb": "img/recAOR2t1yplUONJ7/thumb/04.jpg"
+      },
+      {
+        "web": "img/recAOR2t1yplUONJ7/web/05.jpg",
+        "thumb": "img/recAOR2t1yplUONJ7/thumb/05.jpg"
+      },
+      {
+        "web": "img/recAOR2t1yplUONJ7/web/06.jpg",
+        "thumb": "img/recAOR2t1yplUONJ7/thumb/06.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
     "id": "recYnc8p4kf0gk4n4",
     "eventTimestamp": "2026-06-23T16:36:37.000+08:00",
     "uploadDate": "2026-06-23T16:15:01.000Z",
