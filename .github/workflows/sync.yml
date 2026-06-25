@@ -49,6 +49,7 @@ jobs:
           GDRIVE_ROOT_FOLDER_ID: 18u8mw-ec6gY9KtyswisNJS6qkK_aIEl5
 
       - name: Commit synced data
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -56,9 +57,11 @@ jobs:
           git add public/img content/entries.json
           if git diff --cached --quiet; then
             echo "沒有資料變更，跳過 commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "data: sync from airtable"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Build static site
@@ -70,3 +73,12 @@ jobs:
 
       - id: deploy
         uses: actions/deploy-pages@v5
+
+      # Pages 部署成功後才推 LINE，確保 /r/{id} 已上線、連結能 unfurl 出 OG 圖。
+      # 只在本輪真的有 commit 新資料時才推。
+      - name: Notify LINE
+        if: steps.commit.outputs.changed == 'true'
+        run: npm run notify
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
