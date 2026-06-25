@@ -144,7 +144,7 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
           >
             <span class="bar" />
             <span class="mono t">{{ formatTime(e.eventTimestamp) }}</span>
-            <span class="lbl">{{ e.keyEvents[0] || '紀錄' }}</span>
+            <span class="lbl">{{ e.title || e.keyEvents[0] || '紀錄' }}</span>
             <span class="mono n">{{ e.photos.length }}</span>
           </button>
         </div>
@@ -191,6 +191,7 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
       <!-- 右欄：info -->
       <aside class="info" data-testid="lightbox-info">
         <div class="mono i-date">{{ formatDateTimeSlash(currentEntry!.eventTimestamp) }}</div>
+        <h2 v-if="currentEntry!.title" class="i-title" data-testid="lightbox-title">{{ currentEntry!.title }}</h2>
         <div v-if="currentEntry!.keyEvents.length" class="tags">
           <span v-for="t in currentEntry!.keyEvents" :key="t" class="tag" data-testid="key-tag">
             <span class="mono kicker">關鍵</span>
@@ -488,6 +489,13 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   font-size: 13px;
   color: var(--text);
   margin-bottom: 12px;
+}
+.i-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  margin: 0 0 12px;
 }
 .tags {
   display: flex;

@@ -85,6 +85,7 @@ useSeoMeta({
                   分享頁 ↗
                 </NuxtLink>
               </div>
+              <h2 v-if="e.title" class="entry-title" data-testid="entry-title">{{ e.title }}</h2>
               <p class="desc" data-testid="entry-desc">{{ e.description }}</p>
               <div v-if="e.photos.length" class="thumbs" data-testid="entry-thumbs">
                 <span v-for="(p, i) in e.photos" :key="i" class="thumb" data-testid="entry-thumb">
@@ -319,6 +320,19 @@ useSeoMeta({
   font-size: 11px;
   font-weight: 600;
   color: var(--accent-text);
+}
+.entry-title {
+  margin: 0 0 4px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+.is-key .entry-title {
+  font-size: 15px;
+}
+.is-routine .entry-title {
+  font-size: 13px;
+  color: var(--text-2);
 }
 .desc {
   margin: 0;

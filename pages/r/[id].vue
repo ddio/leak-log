@@ -14,9 +14,8 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`
 const absolute = (p: string) => `${site}/${p.replace(/^\//, '')}`
 
 const dateSlash = formatDateSlash(e.eventTimestamp)
-const shareTitle = e.keyEvents[0]
-  ? `${e.keyEvents[0]} · ${dateSlash}`
-  : `漏水紀錄 · ${dateSlash}`
+const headline = e.title || e.keyEvents[0] || '漏水紀錄'
+const shareTitle = `${headline} · ${dateSlash}`
 const excerpt = e.description.replace(/\s+/g, ' ').trim().slice(0, 100)
 const ogImage = e.photos[0] ? absolute(e.photos[0].web) : undefined
 
@@ -51,6 +50,8 @@ useSeoMeta({
             <span class="kw">{{ t }}</span>
           </span>
         </div>
+
+        <h1 v-if="e.title" class="title" data-testid="share-title">{{ e.title }}</h1>
 
         <div class="mono datetime" data-testid="share-datetime">{{ formatDateTimeSlash(e.eventTimestamp) }}</div>
 
@@ -172,6 +173,13 @@ useSeoMeta({
   font-size: 11px;
   font-weight: 600;
   color: var(--accent-text);
+}
+.title {
+  font-size: clamp(19px, 5vw, 22px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  margin: 0 0 8px;
 }
 .datetime {
   font-size: 13px;
