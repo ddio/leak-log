@@ -1,5 +1,38 @@
 [
   {
+    "id": "recJ7Z7XrxVjDyr0s",
+    "eventTimestamp": "2026-06-25T13:57:09.000+08:00",
+    "uploadDate": "2026-06-25T06:09:44.000Z",
+    "title": "發現黃色染料",
+    "description": "衛生紙有顏色了，看起來是黃色（洗手台），兩個滴水點有明顯黃色。\n\n其他地方一樣，維修孔整條、天花板角落衛生紙都濕透，但目測滴水速度有稍稍減緩。\n\n已鋪上新的衛生紙",
+    "keyEvents": [
+      "色素水測試"
+    ],
+    "photos": [
+      {
+        "web": "img/recJ7Z7XrxVjDyr0s/web/01.jpg",
+        "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/01.jpg"
+      },
+      {
+        "web": "img/recJ7Z7XrxVjDyr0s/web/02.jpg",
+        "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/02.jpg"
+      },
+      {
+        "web": "img/recJ7Z7XrxVjDyr0s/web/03.jpg",
+        "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/03.jpg"
+      },
+      {
+        "web": "img/recJ7Z7XrxVjDyr0s/web/04.jpg",
+        "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/04.jpg"
+      },
+      {
+        "web": "img/recJ7Z7XrxVjDyr0s/web/05.jpg",
+        "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/05.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
     "id": "recAOR2t1yplUONJ7",
     "eventTimestamp": "2026-06-24T10:00:00.000+08:00",
     "uploadDate": "2026-06-24T02:40:19.000Z",
