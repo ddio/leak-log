@@ -26,13 +26,30 @@
         ▼
 [LINE 群組]  收到本輪新同步紀錄的分享卡片 + https://ddio.github.io/leak-log/r/{id}
 
-[Edge Function: line-webhook]  ← 只為「抓 groupId / 之後收指令」而存在
+[Edge Function: line-webhook]  ← 收 join/leave 維護 line_groups(群清單)+ 之後收指令
 ```
 
 ## 為什麼用 Supabase(而非 Render 免費版)
 
 - Render 免費 web service **閒置 15 分鐘休眠**,長駐 `setInterval` 輪詢會跟著停;要不睡得靠外部 keep-alive ping,等於又多一個外部 cron,本末倒置。Render 自家 Cron Job 是付費。
 - Supabase 免費含 **pg_cron**(真排程,不怕休眠)+ **Edge Functions**(Deno/TS,on-demand)+ **Postgres**(存 groupId)。輪詢這半天生準時。
+
+---
+
+## 後台資料表(Supabase)
+
+LINE 沒有「列出 bot 加入哪些群」的 API,群清單只能靠 webhook 的 `join`/`leave` event 自己記帳。這幾張表(schema 在 `supabase/migrations/0001_line_admin_tables.sql`)就是**群組清單的唯一 source of truth**,Supabase 內建的 **Table Editor 直接當後台**——勾 `notify_enabled` 控制推不推,不必另外做網頁。
+
+| 表 | 用途 |
+|---|---|
+| `line_groups` | 群組清單。`group_id` / `name` / `picture_url` / `member_count` / `notify_enabled`(管理員勾選,預設 false)/ `status`(joined·left 軟刪除)/ `last_notified_at` / `last_notified_url`。 |
+| `line_group_members` | 群成員名稱(best-effort)。`members/ids` 需已驗證/付費帳號,未驗證 403 → 抓不到就空著,人數一律看 `line_groups.member_count`。 |
+
+讀寫分工:
+
+- **`line-webhook` 寫入**:`join` → upsert 一列(status=joined、抓 summary 補 name/picture/count);`leave` → 該列 status=left + left_at;(可選)訂閱指令 → 改 `notify_enabled`。白名單以外的群可在 `join` 當下呼叫 leave API 退出。
+- **`notify-line.mjs` 讀取**:推播前 `select group_id from line_groups where status='joined' and notify_enabled=true`,逐群 push;push 成功後回寫 `last_notified_at` / `last_notified_url`。
+- 原本寫死的單一 `LINE_GROUP_ID` secret 因此**移除**,推送目標改由這張表決定。
 
 ---
 
@@ -58,11 +75,14 @@
 
 ### 2. Edge Function `line-webhook`(Deno/TypeScript)
 
-職責:接 LINE platform 的 webhook event。主要用途是**一次性抓到 `groupId`**,之後可擴充指令。
+職責:接 LINE platform 的 webhook event,維護 `line_groups`(群清單真實來源),之後可擴充指令。
 
 邏輯:
 1. 驗 `X-Line-Signature`(用 channel secret 做 HMAC-SHA256)。
-2. 解析 events。當 `event.source.type === 'group'` 時,把 `event.source.groupId` 記下來(寫進 Supabase 一張表 `line_targets`,或先 `console.log` 撈 log 看)。
+2. 解析 events:
+   - `join`(被拉進群)→ upsert `line_groups`(status=joined),順手打 `/summary` + `/members/count` 補 name·picture·member_count;若該 groupId 不在白名單,呼叫 `POST /v2/bot/group/{groupId}/leave` 退出。
+   - `leave` / `bot 被踢` → 該列 status=left、補 left_at。
+   - (可選)群訊息指令「訂閱 / 取消訂閱」→ 改該列 `notify_enabled`。
 3. 回 200。
 
 需要的環境變數:
@@ -132,15 +152,15 @@ select cron.schedule(
         if: steps.commit.outputs.changed == 'true'
         env:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
-          LINE_GROUP_ID: ${{ secrets.LINE_GROUP_ID }}
-        run: node scripts/notify-line.mjs   # 讀 .sync-output.json → push 卡片
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}   # pg 直連，不走 supabase-js（降耦）
+        run: node scripts/notify-line.mjs   # 讀 .sync-output.json + line_groups → push 卡片
 ```
 
 注意:Notify 放在 **deploy-pages 成功之後**,確保 `/r/{id}` 已上線、連結 unfurl 得出 OG 圖。
 
 `scripts/notify-line.mjs` 做的事:
 - 讀 `.sync-output.json`;空就 exit 0。
-- 對最新一筆(或逐筆)組訊息,`POST https://api.line.me/v2/bot/message/push`,body `{ to: LINE_GROUP_ID, messages: [...] }`,header `Authorization: Bearer {LINE_TOKEN}`。
+- 用 `pg` 連 `DATABASE_URL`(不走 supabase-js,讓 GitHub 側只認識「一個 Postgres」),查 `select group_id from line_groups where status='joined' and notify_enabled=true`,逐群 `POST https://api.line.me/v2/bot/message/push`,body `{ to: group_id, messages: [...] }`,header `Authorization: Bearer {LINE_TOKEN}`;push 成功後回寫該群 `last_notified_at` / `last_notified_url`。
 - 訊息可先用 text(標題 + `https://ddio.github.io/leak-log/r/{id}`),之後升級 Flex Message 帶縮圖。
 
 ---
@@ -154,14 +174,17 @@ select cron.schedule(
 | Supabase function | `LINE_CHANNEL_SECRET` | line-webhook 驗簽 |
 | Supabase function | `LINE_CHANNEL_ACCESS_TOKEN` | (選)webhook 內回訊息 |
 | GitHub Secrets | `LINE_CHANNEL_ACCESS_TOKEN` | sync.yml 推群組 |
-| GitHub Secrets | `LINE_GROUP_ID` | 推送目標群組 |
+| GitHub Secrets | `DATABASE_URL` | notify-line 用 `pg` 直連讀寫 `line_groups`(降耦,不走 supabase-js) |
+
+> 推送目標不再用單一 `LINE_GROUP_ID`,改由 `line_groups.notify_enabled` 決定(見「後台資料表」)。
+> notify-line 走 `DATABASE_URL` 而非 Supabase API,是為了讓 GitHub 側不綁 Supabase(見「相依性與本機測試策略」)。
 
 > **Drive 金鑰維持只在 GitHub Actions,不上 server。**
 
 ## 一次性手動設定(動工時要做)
 
 1. LINE Developers 建 Messaging API channel;把 bot 加進目標群組。
-2. 部署 `line-webhook`,在 console 設 Webhook URL + 開 "Use webhook";從群組發一則訊息 / 把 bot 拉進群,讓 webhook event 帶出 `groupId` → 記下來填 `LINE_GROUP_ID`。
+2. 跑 `supabase/migrations/0001_line_admin_tables.sql` 建表;部署 `line-webhook`,在 console 設 Webhook URL + 開 "Use webhook";把 bot 拉進群,`join` event 會 upsert 進 `line_groups`;在 Table Editor 把要推播的群 `notify_enabled` 勾起來。
 3. 開 fine-grained GitHub PAT(限 `ddio/leak-log`、Actions: Read and write)。
 4. Supabase 建專案、`supabase functions deploy` 兩個 function、設 function secrets、跑 pg_cron SQL。
 5. (可選)保留 GitHub `schedule` cron 當 fallback——Supabase 掛掉時仍會慢慢同步。
@@ -172,6 +195,38 @@ select cron.schedule(
 - Supabase Edge Function 冷啟動有秒級延遲,對「每 2 分輪詢」無感。
 - pg_net / pg_cron 屬非同步,失敗只進 Postgres log,需要時去 `cron.job_run_details` 查。
 - workflow_dispatch 仍只能觸發 main 上的 workflow。
+
+## 相依性與本機測試策略
+
+### 對 Supabase 綁多深(換平台時)
+- 🔴 **`pg_cron` + `pg_net`(排程觸發)**:`pg_net` 是 Supabase 自家擴充,「在 Postgres 內發非同步 HTTP」幾乎只此一家。遷移 = 整個觸發機制換成一般 cron 打 HTTP。黏最緊。
+- 🔴 **Edge Functions 部署/JWT 驗證/公開 URL**:handler 程式碼可攜(就是 Deno Web fetch handler),但平台層綁 Supabase。
+- 🟡 **Table Editor 當後台 UI**:離開 Supabase 就得自己做一個 UI。刻意取捨,但不可攜。
+- 🟢 **三張表 schema + 資料**:純標準 Postgres,`pg_dump` 可搬,完全可攜。
+
+降耦手段(已納入設計):
+- `notify-line.mjs` 走 `DATABASE_URL` + `pg` 直連,不走 supabase-js → GitHub 側只認識「一個 Postgres」。
+- Edge Function 把**純邏輯**(給 event / DB 做 X)和**平台膠水**(讀 env、serve handler、JWT 檢查)分檔,純邏輯才好單獨測。
+- 三個對外副作用點(`poll-and-dispatch` 的 GitHub dispatch、`notify-line` 的 LINE push、`line-webhook` 的自動退群)吃一個 `DRY_RUN` 環境變數,本機只印 log 不真的打。
+
+### 本機可測 vs 留到雲端
+business logic 基本上 100% 本機可測;Supabase 只吃掉「定時觸發」與「部署驗證」這兩件本來就該在真環境才驗的事。
+
+| 元件 | 本機可測 | 怎麼測 |
+|---|---|---|
+| 三張表 schema + 觸發器 | ✅ | docker `postgres:16` → 套 `0001_*.sql` → 驗 table/trigger/`updated_at` |
+| `notify-line.mjs` | ✅ | 連本機 PG、塞 `notify_enabled=true` 一筆,打真的 LINE 測試群(或 `DRY_RUN=1`) |
+| `line-webhook` 純邏輯 | ✅ | 手刻 LINE event payload + 算好簽章 → 驗本機 PG upsert/軟刪 |
+| `poll-and-dispatch` 純邏輯 | ✅ | 真讀 Airtable(唯讀);GitHub dispatch 用 `DRY_RUN` 印出來不真打 |
+| `sync.ts` → `.sync-output.json` | ✅ | 既有 pipeline,本機照跑 |
+| `pg_cron`/`pg_net` 定時觸發 | ❌ | 不需本機測:開發時用一行 `curl` 手動打 `poll-and-dispatch` 取代鬧鐘,下游全測得到 |
+| Edge Function 部署/JWT/URL/冷啟動 | ❌ | 純平台層,部署後驗 |
+| 完整 `sync.yml` 串接 + Pages unfurl/OG | ❌ | GitHub/Pages 側,實際環境驗 |
+
+### 本機開發環境
+- docker 起 Postgres、套 migration。
+- `.env.local`:`DATABASE_URL`(本機)、`AIRTABLE_API_KEY`(真的、唯讀)、一個 LINE 測試 channel + 測試群、`DRY_RUN=1`(要驗整條時才關)。
+- 跑 function:`supabase functions serve`(Supabase CLI 在本機跑 Deno,不碰雲)或直接 `deno test` 測純邏輯。
 
 ## 大致工序(動工順序建議)
 1. `sync.ts` 輸出 `.sync-output.json` + `scripts/notify-line.mjs` + `sync.yml` 加 Notify step(可先用 `gh workflow run` 手動測,不依賴 Supabase)。
