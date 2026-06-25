@@ -5,6 +5,8 @@
   "scripts": {
     "test:drive": "tsx scripts/test-drive.ts",
     "sync": "tsx scripts/sync.ts",
+    "notify": "tsx scripts/notify-line.ts",
+    "notify:test": "tsx scripts/notify-test.ts",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
@@ -16,12 +18,14 @@
     "googleapis": "^144.0.0",
     "luxon": "^3.7.2",
     "nuxt": "^3.21.8",
+    "pg": "^8.22.0",
     "sharp": "^0.35.2",
     "vue": "^3.5.38",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@types/luxon": "^3.7.2",
+    "@types/pg": "^8.20.0",
     "tsx": "^4.19.2"
   }
 }
