@@ -11,21 +11,16 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import pg from 'pg';
-import { ROOT, SITE_URL, requireEnv, optionalEnv } from './lib/config.ts';
+import { ROOT, requireEnv, optionalEnv } from './lib/config.ts';
+import { buildMessages, pushTo, recordUrl } from './lib/line.ts';
 
 const SYNC_OUTPUT = resolve(ROOT, '.sync-output.json');
-const LINE_PUSH = 'https://api.line.me/v2/bot/message/push';
 const DRY_RUN = !!optionalEnv('DRY_RUN', '');
 
 interface SyncedItem {
   id: string;
   title: string;
   eventTimestamp: string;
-}
-
-/** 永久連結：https://ddio.github.io/leak-log/r/{id} */
-function recordUrl(id: string): string {
-  return `${SITE_URL}r/${id}`;
 }
 
 async function loadSynced(): Promise<SyncedItem[]> {
@@ -35,25 +30,6 @@ async function loadSynced(): Promise<SyncedItem[]> {
   } catch (e) {
     if ((e as NodeJS.ErrnoException).code === 'ENOENT') return [];
     throw e;
-  }
-}
-
-/** 本輪逐筆組成 text 訊息（LINE 單次 push 上限 5 則），最新的在最前面 */
-function buildMessages(items: SyncedItem[]): { type: 'text'; text: string }[] {
-  return items.slice(0, 5).map((it) => ({
-    type: 'text',
-    text: `💧 漏水紀錄更新\n${it.title || '(無標題)'}\n${recordUrl(it.id)}`,
-  }));
-}
-
-async function pushTo(token: string, groupId: string, messages: object[]): Promise<void> {
-  const res = await fetch(LINE_PUSH, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ to: groupId, messages }),
-  });
-  if (!res.ok) {
-    throw new Error(`LINE push ${groupId} 失敗 ${res.status}: ${await res.text()}`);
   }
 }
 

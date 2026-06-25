@@ -6,6 +6,7 @@
     "test:drive": "tsx scripts/test-drive.ts",
     "sync": "tsx scripts/sync.ts",
     "notify": "tsx scripts/notify-line.ts",
+    "notify:test": "tsx scripts/notify-test.ts",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
