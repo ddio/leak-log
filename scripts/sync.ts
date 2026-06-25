@@ -3,12 +3,27 @@
  * 撈未同步 record → 逐筆 [下載→解析時間→處理圖→Drive 同步→更新 entries.json]
  * → 成功回寫 已同步=true、失敗寫 同步錯誤。缺時間的視為可修正、跳過不算硬失敗。
  */
+import { writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { fetchUnsynced, markSynced, markError } from './lib/airtable.ts';
 import { downloadPhotos } from './lib/download.ts';
 import { resolveTimestamp } from './lib/exif.ts';
 import { processPhotos } from './lib/images.ts';
 import { syncRecordToDrive } from './lib/drive.ts';
 import { loadEntries, buildEntry, upsertEntry, saveEntries } from './lib/entries.ts';
+import { ROOT } from './lib/config.ts';
+
+/**
+ * 本輪「實際新同步成功」的紀錄，寫到 repo 根 .sync-output.json，給 workflow 的
+ * Notify LINE step 讀（比在 workflow 端猜 entries[0] 精準，避免重編舊紀錄被誤播）。
+ * 不需 commit，已列入 .gitignore；只在 step 之間傳遞。
+ */
+const SYNC_OUTPUT = resolve(ROOT, '.sync-output.json');
+interface SyncedItem {
+  id: string;
+  title: string;
+  eventTimestamp: string;
+}
 
 const NO_TIME_MSG =
   '無法決定事件時間：照片沒有可用的 EXIF 拍攝時間（或多張時間差超過 2 小時），' +
@@ -20,6 +35,7 @@ async function main(): Promise<void> {
   if (records.length === 0) return;
 
   let entries = await loadEntries();
+  const synced: SyncedItem[] = [];
   let ok = 0;
   let skipped = 0;
   let failed = 0;
@@ -43,6 +59,7 @@ async function main(): Promise<void> {
       await saveEntries(entries); // 每筆即存，中途失敗也不丟已完成的
       await markSynced(r.recordId);
 
+      synced.push({ id: r.recordId, title: r.title, eventTimestamp: ts.iso });
       console.log(`✓ ${label} — ${dl.length} 圖, 事件時間 ${ts.iso} (${ts.source})`);
       ok++;
     } catch (e) {
@@ -56,6 +73,10 @@ async function main(): Promise<void> {
       failed++;
     }
   }
+
+  // 本輪新同步清單寫檔（依事件時間新→舊，notify 取最新一筆當主角）。
+  synced.sort((a, b) => b.eventTimestamp.localeCompare(a.eventTimestamp));
+  await writeFile(SYNC_OUTPUT, JSON.stringify(synced, null, 2));
 
   console.log(`\n完成：成功 ${ok}、跳過(缺時間) ${skipped}、失敗 ${failed}`);
   // 單筆失敗/缺時間不讓整個 job 失敗——否則後續 commit/deploy 會被略過，
