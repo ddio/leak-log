@@ -14,7 +14,7 @@
 - **pg_cron**:job `leaklog-poll`,`*/2 * * * *`;手動觸發已驗證回 `200 {"unsynced":false,"dispatched":false}`。
 - **程式碼**:`scripts/sync.ts`(輸出 `.sync-output.json`)、`scripts/notify-line.ts`(`npm run notify`,用 `pg`)、`.github/workflows/sync.yml`(末段 Notify LINE)。
 - **監控**:HTTP 回應看 `net._http_response`、排程看 `cron.job_run_details`、函式 log 看 Dashboard → Edge Functions → Logs(或 MCP `get_logs`)。
-- **待 LINE 端驗收**:把 bot 拉進群(寫進 `line_groups`)、群內打「訂閱」(`notify_enabled=true`)、丟一筆新 Airtable 紀錄看會不會推播。
+- **待 LINE 端驗收**:把 bot 拉進群(任何群訊息會寫進 `line_groups`)、在 Table Editor 把該群 `notify_enabled` 勾 true、丟一筆新 Airtable 紀錄看會不會推播。
 
 ## 背景:為什麼要做這個
 
@@ -59,7 +59,7 @@ LINE 沒有「列出 bot 加入哪些群」的 API,群清單只能靠 webhook �
 
 讀寫分工:
 
-- **`line-webhook` 寫入**:`join` → upsert 一列(status=joined、抓 summary 補 name/picture/count);`leave` → 該列 status=left + left_at;(可選)訂閱指令 → 改 `notify_enabled`。白名單以外的群可在 `join` 當下呼叫 leave API 退出。
+- **`line-webhook` 寫入**(走 `postgres` 直連,不經 PostgREST):`join`/群訊息 → upsert 一列(status=joined、抓 summary 補 name/picture/count);`leave` → 該列 status=left + left_at。**`notify_enabled` 完全由管理員手動勾,bot 不碰**。白名單以外的群可在 `join` 當下呼叫 leave API 退出。
 - **`notify-line.ts` 讀取**:推播前 `select group_id from line_groups where status='joined' and notify_enabled=true`,逐群 push;push 成功後回寫 `last_notified_at` / `last_notified_url`。
 - 原本寫死的單一 `LINE_GROUP_ID` secret 因此**移除**,推送目標改由這張表決定。
 
@@ -98,14 +98,14 @@ LINE 沒有「列出 bot 加入哪些群」的 API,群清單只能靠 webhook �
    - `join`(被拉進群)→ upsert `line_groups`(status=joined),順手打 `/summary` + `/members/count` 補 name·picture·member_count;若設了 `GROUP_ALLOWLIST` 且不在內,呼叫 `POST /v2/bot/group/{groupId}/leave` 退出、不記帳。
    - `leave` / `bot 被踢` → 該列 status=left、補 left_at。
    - `memberJoined` / `memberLeft` → 刷新 `member_count`。
-   - `message` 文字 → 先 upsert 確保有這筆群(webhook 可能晚於 join),再認指令:「訂閱/開啟通知」→ `notify_enabled=true`;「取消訂閱/關閉通知」→ false;並 reply 回確認。
+   - `message`(任何群訊息)→ upsert 確保有這筆群(webhook 可能晚於 join)。**不解析指令、不回話**——bot 只記帳,要不要推由管理員在 Table Editor 手動勾 `notify_enabled`。
 3. 一律回 200(單一 event 失敗不影響其他,LINE 失敗會自動重送)。
 
 需要的環境變數:
 - `LINE_CHANNEL_SECRET`(驗簽)
-- `LINE_CHANNEL_ACCESS_TOKEN`(抓群 summary / 自動退群 / reply 都要)
+- `LINE_CHANNEL_ACCESS_TOKEN`(抓群 summary / 人數 / 自動退群)
 - 選用 `GROUP_ALLOWLIST`(逗號分隔 groupId 白名單)
-- `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` 由 Supabase **自動注入**(service role 寫 DB 繞 RLS),免設。
+- `SUPABASE_DB_URL` 由 Supabase **自動注入**;DB 走 `postgres` 直連、**不走 supabase-js/PostgREST**(與 notify-line 一致 → 專案 Data API 可保持關閉,攻擊面更小)。
 
 部署:`verify_jwt=false`(LINE 不帶 Supabase JWT,改由函式自驗 `X-Line-Signature`)。
 LINE Console 把 Webhook URL 設成 `https://yougbqqtttrghlviquoq.supabase.co/functions/v1/line-webhook`,開 "Use webhook"、關 Auto-reply/Greeting、開 Allow bot to join group chats。
@@ -198,7 +198,7 @@ select cron.schedule(
 | GitHub Secrets | `LINE_CHANNEL_ACCESS_TOKEN` | sync.yml 推群組 |
 | GitHub Secrets | `DATABASE_URL` | notify-line 用 `pg` 直連讀寫 `line_groups`(降耦,不走 supabase-js) |
 
-> `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` 給 Edge Function 寫 DB,Supabase 自動注入、免設。
+> `SUPABASE_DB_URL` 給 line-webhook 用 `postgres` 直連寫 DB,Supabase 自動注入、免設(不走 PostgREST,故專案 Data API 可關)。
 
 > 推送目標不再用單一 `LINE_GROUP_ID`,改由 `line_groups.notify_enabled` 決定(見「後台資料表」)。
 > notify-line 走 `DATABASE_URL` 而非 Supabase API,是為了讓 GitHub 側不綁 Supabase(見「相依性與本機測試策略」)。
@@ -210,7 +210,7 @@ select cron.schedule(
 - ✅ Supabase 專案建好、三支 migration 套用、兩個 function 部署(`verify_jwt=false`)。
 - ✅ function secrets + GitHub secrets + Vault `cron_secret` 設定完成。
 - ✅ pg_cron `leaklog-poll` 排程接上,手動觸發驗證回 200。
-- ⏳ LINE 端驗收:建 Messaging API channel(已開)→ 填 Webhook URL `.../functions/v1/line-webhook` + 開 Use webhook → 把 bot 拉進群(`join` 寫進 `line_groups`)→ 群內打「訂閱」或在 Table Editor 勾 `notify_enabled` → 丟一筆新 Airtable 紀錄看推播。
+- ⏳ LINE 端驗收:建 Messaging API channel(已開)→ 填 Webhook URL `.../functions/v1/line-webhook` + 開 Use webhook(注意 OA Manager 回應模式要設「聊天機器人」,否則不送 webhook)→ 把 bot 拉進群(`join`/群訊息寫進 `line_groups`)→ Table Editor 勾 `notify_enabled` → 丟一筆新 Airtable 紀錄看推播。
 - (可選)保留 GitHub `schedule` cron 當 fallback——Supabase 掛掉時仍會慢慢同步。
 
 ## 已知限制 / 注意
