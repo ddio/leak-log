@@ -1,12 +1,13 @@
 name: sync
 
 # 觸發：
-#  - schedule：每 15 分鐘輪詢 Airtable（只在 default branch=main 生效）
+#  - schedule：每小時輪詢 Airtable（只在 default branch=main 生效）
+#    免費 Airtable 每月 1000 次 API 上限，每 15 分鐘會爆量，改成整點跑一次。
 #  - workflow_dispatch：手動立即跑一次（Actions 頁或 gh CLI）
 #  - repository_dispatch：保留給未來主動推送（免費 Airtable 無法用，先留著）
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
   repository_dispatch:
     types: [airtable-submit]
