@@ -46,6 +46,27 @@
     "timestampSource": "manual"
   },
   {
+    "id": "recrxUJ0BHB44d6vJ",
+    "eventTimestamp": "2026-06-30T10:00:00.000+08:00",
+    "uploadDate": "2026-07-03T00:57:16.000Z",
+    "title": "漏水速度大幅增加",
+    "description": "0630漏水紀錄：衛生紙明顯黃色，水滴大約8秒一滴\n\n",
+    "keyEvents": [
+      "嚴重滲水"
+    ],
+    "photos": [
+      {
+        "web": "img/recrxUJ0BHB44d6vJ/web/01.jpg",
+        "thumb": "img/recrxUJ0BHB44d6vJ/thumb/01.jpg"
+      },
+      {
+        "web": "img/recrxUJ0BHB44d6vJ/web/02.jpg",
+        "thumb": "img/recrxUJ0BHB44d6vJ/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
     "id": "rectFEWqrywOh0wnb",
     "eventTimestamp": "2026-06-29T11:00:00.000+08:00",
     "uploadDate": "2026-07-03T00:53:45.000Z",
@@ -77,27 +98,6 @@
       {
         "web": "img/reckbUx65F1Qy4EDM/web/02.jpg",
         "thumb": "img/reckbUx65F1Qy4EDM/thumb/02.jpg"
-      }
-    ],
-    "timestampSource": "manual"
-  },
-  {
-    "id": "recrxUJ0BHB44d6vJ",
-    "eventTimestamp": "2026-06-29T10:00:00.000+08:00",
-    "uploadDate": "2026-07-03T00:57:16.000Z",
-    "title": "漏水速度大幅增加",
-    "description": "0630漏水紀錄：衛生紙明顯黃色，水滴大約8秒一滴\n\n",
-    "keyEvents": [
-      "嚴重滲水"
-    ],
-    "photos": [
-      {
-        "web": "img/recrxUJ0BHB44d6vJ/web/01.jpg",
-        "thumb": "img/recrxUJ0BHB44d6vJ/thumb/01.jpg"
-      },
-      {
-        "web": "img/recrxUJ0BHB44d6vJ/web/02.jpg",
-        "thumb": "img/recrxUJ0BHB44d6vJ/thumb/02.jpg"
       }
     ],
     "timestampSource": "manual"
