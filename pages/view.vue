@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// 照片檢視 Lightbox /view：全站照片攤平連續瀏覽 + 常駐時間軸 rail + 鍵盤導覽。
-// 初始位置由 ?r=recordId&p=photoIndex 帶入（首頁/單則頁點照片進來）。
+// 檢視 Lightbox /view：全站媒體（照片與影片）攤平連續瀏覽 + 常駐時間軸 rail + 鍵盤導覽。
+// 初始位置由 ?r=recordId&p=mediaIndex 帶入（首頁/單則頁點縮圖進來）。
 import type { Entry } from '~/composables/useEntries'
 
 const route = useRoute()
@@ -9,10 +9,10 @@ const base = useRuntimeConfig().app.baseURL.replace(/\/$/, '')
 const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`
 
 const entries = useEntries()
-const flat = flattenPhotos(entries)
-const railGroups = groupByDay(entries.filter((e) => e.photos.length))
+const flat = flattenMedia(entries)
+const railGroups = groupByDay(entries.filter((e) => e.media.length))
 
-// 每則的第一張全域索引（flat 內每則照片連續）
+// 每則的第一個全域索引（flat 內每則的媒體連續）
 const recordList: { entry: Entry; first: number }[] = []
 const posById = new Map<string, number>()
 for (const f of flat) {
@@ -26,14 +26,24 @@ const len = flat.length
 const idx = ref(0)
 const current = computed(() => flat[idx.value])
 const currentEntry = computed(() => current.value?.entry)
-const currentPhotos = computed(() => currentEntry.value?.photos ?? [])
+const currentMedia = computed(() => currentEntry.value?.media ?? [])
 const currentFirst = computed(() => recordList[posById.get(currentEntry.value!.id)!].first)
+
+// 分成兩個 computed 讓 template 拿到收窄後的型別，不用在每個欄位上斷言
+const currentPhoto = computed(() => {
+  const m = current.value?.item
+  return m && isPhoto(m) ? m : null
+})
+const currentVideo = computed(() => {
+  const m = current.value?.item
+  return m && isVideo(m) ? m : null
+})
 
 const go = (i: number) => {
   idx.value = Math.max(0, Math.min(len - 1, i))
 }
-const nextPhoto = () => go(idx.value + 1)
-const prevPhoto = () => go(idx.value - 1)
+const nextMedia = () => go(idx.value + 1)
+const prevMedia = () => go(idx.value - 1)
 const jumpRecord = (delta: number) => {
   const p = posById.get(currentEntry.value!.id)!
   go(recordList[Math.max(0, Math.min(recordList.length - 1, p + delta))].first)
@@ -46,51 +56,68 @@ const selectRecord = (entry: Entry) => {
   goRecord(entry)
   railOpen.value = false
 }
-const goPhotoInRecord = (pi: number) => go(currentFirst.value + pi)
+const goMediaInRecord = (mi: number) => go(currentFirst.value + mi)
 const isCurrent = (entry: Entry) => entry.id === currentEntry.value?.id
 
-// 切換照片時顯示 loading skeleton，避免停在前一張讓人以為卡住
+/** 事件是不是發生在 <video> 上（含它的內建控制列） */
+const inVideo = (t: EventTarget | null): boolean =>
+  !!(t as HTMLElement | null)?.closest?.('video')
+
+// 切換時顯示 loading skeleton，避免停在前一張讓人以為卡住
 const stageImg = ref<HTMLImageElement | null>(null)
 const imgLoading = ref(false)
 watch(idx, () => {
-  imgLoading.value = true
+  // 影片 slide 不用骨架：poster 會立刻顯示，而且 <video> 不會觸發 <img> 的
+  // @load，骨架一旦設起來就再也清不掉，會變成永遠在閃的灰底。
+  imgLoading.value = !currentVideo.value
 })
 const onImgLoad = () => {
   imgLoading.value = false
 }
 
-// 手機觸控：水平滑動切換照片（左滑下一張、右滑上一張）
+// 手機觸控：水平滑動切換（左滑下一個、右滑上一個）
 let touchX = 0
 let touchY = 0
+let swipeArmed = false
 const onTouchStart = (e: TouchEvent) => {
+  // 拖影片進度條的手勢也會冒泡到 .frame，不擋的話一放開就跳到下一個
+  swipeArmed = !inVideo(e.target)
   touchX = e.changedTouches[0].clientX
   touchY = e.changedTouches[0].clientY
 }
 const onTouchEnd = (e: TouchEvent) => {
+  if (!swipeArmed) return
   const dx = e.changedTouches[0].clientX - touchX
   const dy = e.changedTouches[0].clientY - touchY
   // 水平位移夠大、且明顯比垂直大（避免和捲動衝突）才觸發
   if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-    if (dx < 0) nextPhoto()
-    else prevPhoto()
+    if (dx < 0) nextMedia()
+    else prevMedia()
   }
 }
 
 function onKey(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    // 影片全螢幕時 Esc 是用來退出全螢幕的，不要順手把人踢回首頁
+    if (document.fullscreenElement) return
+    router.push('/')
+    return
+  }
+  // 焦點在影片上時，←/→ 是瀏覽器內建的快轉倒退、↑↓ 是音量，讓給它處理
+  if (inVideo(e.target)) return
+
   if (e.key === 'ArrowRight') {
     e.preventDefault()
-    nextPhoto()
+    nextMedia()
   } else if (e.key === 'ArrowLeft') {
     e.preventDefault()
-    prevPhoto()
+    prevMedia()
   } else if (e.key === 'ArrowDown') {
     e.preventDefault()
     jumpRecord(1)
   } else if (e.key === 'ArrowUp') {
     e.preventDefault()
     jumpRecord(-1)
-  } else if (e.key === 'Escape') {
-    router.push('/')
   }
 }
 
@@ -104,7 +131,7 @@ onMounted(() => {
 })
 onUnmounted(() => window.removeEventListener('keydown', onKey))
 
-useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
+useSeoMeta({ title: '照片與影片檢視 · 漏水紀錄', robots: 'noindex' })
 </script>
 
 <template>
@@ -117,15 +144,15 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
         </button>
         <span class="mono seq" data-testid="lightbox-seq">{{ idx + 1 }}</span>
         <span class="mono total">/ {{ len }}</span>
-        <span class="mono fname">{{ seqName(current.photoIndex) }}</span>
+        <span class="mono fname">{{ mediaName(current.item) }}</span>
       </div>
       <div class="tb-right">
-        <span class="mono hint">← → 照片 · ↑ ↓ 事件 · Esc 關閉</span>
+        <span class="mono hint">← → 附件 · ↑ ↓ 事件 · Esc 關閉</span>
         <NuxtLink to="/" class="close" data-testid="lightbox-close" aria-label="關閉">×</NuxtLink>
       </div>
     </div>
 
-    <div v-if="!len" class="empty" data-testid="lightbox-empty">尚無照片。</div>
+    <div v-if="!len" class="empty" data-testid="lightbox-empty">尚無照片或影片。</div>
 
     <div v-else class="main">
       <!-- 左欄：時間軸 rail（手機版可收合） -->
@@ -145,7 +172,7 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
             <span class="bar" />
             <span class="mono t">{{ formatTime(e.eventTimestamp) }}</span>
             <span class="lbl">{{ e.title || e.keyEvents[0] || '紀錄' }}</span>
-            <span class="mono n">{{ e.photos.length }}</span>
+            <span class="mono n">{{ e.media.length }}</span>
           </button>
         </div>
       </aside>
@@ -159,31 +186,54 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
           @touchend.passive="onTouchEnd"
         >
           <img
+            v-if="currentPhoto"
             ref="stageImg"
-            :src="asset(current.web)"
-            :alt="`照片 ${current.photoIndex + 1}`"
+            :src="asset(currentPhoto.web)"
+            :alt="`照片 ${current.mediaIndex + 1}`"
             data-testid="lightbox-image"
             :class="{ loading: imgLoading }"
             @load="onImgLoad"
             @error="onImgLoad"
           />
+          <!--
+            :key 讓 Vue 在切換時重建 <video>：連續兩個影片 slide 會沿用同一個
+            element，只換 src 的話上一支會繼續播（含聲音）。
+            preload="none" + poster：逛的時候不預抓影片，按下播放才下載。
+            playsinline：不加的話 iOS Safari 一播放就強制全螢幕，跳出 lightbox。
+          -->
+          <video
+            v-else-if="currentVideo"
+            :key="idx"
+            class="stage-video"
+            :src="asset(currentVideo.src)"
+            :poster="asset(currentVideo.poster)"
+            :style="{ aspectRatio: `${currentVideo.width} / ${currentVideo.height}` }"
+            controls
+            playsinline
+            preload="none"
+            data-testid="lightbox-video"
+          />
           <div v-if="imgLoading" class="img-skeleton" data-testid="lightbox-skeleton">
             <span class="mono">載入中…</span>
           </div>
-          <span class="mono stage-badge">本則 {{ current.photoIndex + 1 }} / {{ currentPhotos.length }}</span>
-          <button class="nav prev" data-testid="lightbox-prev" :disabled="idx === 0" aria-label="上一張" @click="prevPhoto">‹</button>
-          <button class="nav next" data-testid="lightbox-next" :disabled="idx === len - 1" aria-label="下一張" @click="nextPhoto">›</button>
+          <!-- 影片的控制列在下緣，計數改放上緣才不會擋到 -->
+          <span class="mono stage-badge" :class="{ top: !!currentVideo }">
+            本則 {{ current.mediaIndex + 1 }} / {{ currentMedia.length }}
+          </span>
+          <button class="nav prev" data-testid="lightbox-prev" :disabled="idx === 0" aria-label="上一個" @click="prevMedia">‹</button>
+          <button class="nav next" data-testid="lightbox-next" :disabled="idx === len - 1" aria-label="下一個" @click="nextMedia">›</button>
         </div>
         <div class="thumbs" data-testid="lightbox-thumbs">
           <button
-            v-for="(p, i) in currentPhotos"
+            v-for="(m, i) in currentMedia"
             :key="i"
             class="thumb"
-            :class="{ on: i === current.photoIndex }"
+            :class="{ on: i === current.mediaIndex }"
             data-testid="lightbox-thumb"
-            @click="goPhotoInRecord(i)"
+            @click="goMediaInRecord(i)"
           >
-            <img :src="asset(p.thumb)" :alt="`縮圖 ${i + 1}`" />
+            <img :src="asset(mediaThumb(m))" :alt="`縮圖 ${i + 1}`" />
+            <span v-if="m.kind === 'video'" class="thumb-play" data-testid="lightbox-thumb-video">▶</span>
           </button>
         </div>
       </section>
@@ -200,10 +250,14 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
         </div>
         <p v-if="currentEntry!.description" class="i-desc">{{ currentEntry!.description }}</p>
         <div class="i-meta">
-          <div class="mono"><span class="k">檔名</span>{{ seqName(current.photoIndex) }}</div>
-          <div class="mono"><span class="k">本則照片</span>{{ current.photoIndex + 1 }} / {{ currentPhotos.length }}</div>
+          <div class="mono"><span class="k">檔名</span>{{ mediaName(current.item) }}</div>
+          <div class="mono"><span class="k">本則附件</span>{{ current.mediaIndex + 1 }} / {{ currentMedia.length }}</div>
+          <div v-if="currentVideo" class="mono" data-testid="lightbox-video-meta">
+            <span class="k">影片</span>{{ formatDuration(currentVideo.duration) }} ·
+            {{ currentVideo.width }}×{{ currentVideo.height }}
+          </div>
         </div>
-        <div class="mono i-foot">已移除 EXIF 地理資訊 · 最大邊 2048px · 提供縮圖</div>
+        <div class="mono i-foot">已移除 EXIF 地理資訊 · 照片最大邊 2048px · 影片 720p 並清除 metadata</div>
       </aside>
     </div>
   </div>
@@ -380,11 +434,18 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   min-width: min(90vw, 560px);
   min-height: min(50vh, 420px);
 }
-.frame img {
+.frame img,
+.frame video {
   max-width: min(100%, 2048px);
   max-height: 80vh;
   object-fit: contain;
   display: block;
+}
+/* aspect-ratio 由 inline style 帶入實際尺寸，配上寬度就不會在載入時跳版 */
+.stage-video {
+  width: min(90vw, 1280px);
+  height: auto;
+  background: #000;
 }
 .frame img.loading {
   opacity: 0;
@@ -425,6 +486,10 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   padding: 2px 6px;
   border-radius: var(--r-sm);
 }
+.stage-badge.top {
+  top: 8px;
+  bottom: auto;
+}
 .nav {
   position: absolute;
   top: 50%;
@@ -456,6 +521,7 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   justify-content: center;
 }
 .thumb {
+  position: relative;
   width: 64px;
   height: 46px;
   border: 1px solid var(--axis);
@@ -471,6 +537,17 @@ useSeoMeta({ title: '照片檢視 · 漏水紀錄', robots: 'noindex' })
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.thumb-play {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  font-size: 8px;
+  line-height: 1;
+  color: #fff;
+  background: rgba(20, 20, 20, 0.72);
+  padding: 2px 4px;
+  border-radius: var(--r-sm);
 }
 .thumb.on {
   border-color: var(--accent);

@@ -65,6 +65,12 @@ export function seqName(index: number, ext = '.jpg'): string {
   return String(index + 1).padStart(2, '0') + ext
 }
 
+/** 影片長度：18.1 → 0:18 */
+export function formatDuration(seconds: number): string {
+  const total = Math.round(seconds)
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`
+}
+
 /** 穩定的分日 key（Asia/Taipei）：2026-06-23 */
 export function dateKey(iso: string): string {
   return new Intl.DateTimeFormat('en-CA', {
