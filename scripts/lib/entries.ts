@@ -5,7 +5,7 @@
  */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { ENTRIES_JSON, CONTENT_DIR } from './config.ts';
-import type { Entry, AirtableRecord, ResolvedTimestamp, ProcessedPhoto } from './types.ts';
+import type { Entry, AirtableRecord, ResolvedTimestamp, MediaItem } from './types.ts';
 
 export async function loadEntries(): Promise<Entry[]> {
   try {
@@ -19,7 +19,7 @@ export async function loadEntries(): Promise<Entry[]> {
 export function buildEntry(
   record: AirtableRecord,
   ts: ResolvedTimestamp,
-  photos: ProcessedPhoto[],
+  media: MediaItem[],
 ): Entry {
   return {
     id: record.recordId,
@@ -28,7 +28,7 @@ export function buildEntry(
     title: record.title,
     description: record.description,
     keyEvents: record.keyEvents,
-    photos,
+    media,
     timestampSource: ts.source,
   };
 }

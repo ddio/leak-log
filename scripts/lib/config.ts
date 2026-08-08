@@ -29,7 +29,8 @@ export const TZ = 'Asia/Taipei';
 /** Airtable Entries 表的欄位 ID（一律用 ID，不靠名稱，改名也不會壞） */
 export const FIELDS = {
   title: 'fldevVSIdPz1Y1V1o',
-  photos: 'fldsKwd7lr7NSUj9L',
+  /** UI 上叫「照片」，實際上照片與影片混放，pipeline 依 mime type 分流 */
+  attachments: 'fldsKwd7lr7NSUj9L',
   description: 'flda2dESNJdbeI8OC',
   manualTimestamp: 'fldFeqSVCgk8mzVa8',
   keyEvents: 'fldoV7r26lgdfZezh',

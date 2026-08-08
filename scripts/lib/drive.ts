@@ -10,10 +10,9 @@ import { Readable } from 'node:stream';
 import { extname } from 'node:path';
 import { DateTime } from 'luxon';
 import { requireEnv, TZ } from './config.ts';
+import { seqPad } from './media.ts';
 import type { AirtableRecord, ResolvedTimestamp } from './types.ts';
-import type { DownloadedPhoto } from './download.ts';
-
-const seq = (i: number): string => String(i + 1).padStart(2, '0');
+import type { DownloadedFile } from './download.ts';
 const escQuery = (s: string): string => s.replace(/'/g, "\\'");
 const toStream = (data: Buffer | string): Readable => Readable.from([data]);
 
@@ -72,26 +71,29 @@ async function upsertFile(
 function buildTxt(
   record: AirtableRecord,
   ts: ResolvedTimestamp,
-  photoNames: string[],
+  fileNames: string[],
 ): string {
   const eventTime = DateTime.fromISO(ts.iso).toFormat('yyyy-MM-dd HH:mm');
   const uploadTime = DateTime.fromISO(record.createdTime).setZone(TZ).toFormat('yyyy-MM-dd HH:mm');
-  const sourceLabel = ts.source === 'exif-median' ? 'EXIF中位數' : '手動';
+  const sourceLabel = ts.source === 'exif-median' ? '拍攝時間中位數' : '手動';
   const header = [
     `事件時間: ${eventTime} (UTC+8)`,
     `上傳時間: ${uploadTime} (UTC+8)`,
     `關鍵事件: ${record.keyEvents.join(', ') || '（無）'}`,
-    `照片: ${photoNames.join(', ') || '（無）'}`,
+    `檔案: ${fileNames.join(', ') || '（無）'}`,
     `時間來源: ${sourceLabel}`,
     '---',
   ].join('\n');
   return `${header}\n${record.description}\n`;
 }
 
-/** 同步一筆 record 到 Drive：原圖 + .txt */
+/**
+ * 同步一筆 record 到 Drive：原始附件（照片與影片）+ .txt
+ * 編號用附件在 record 內的順序（1-based），與網頁上的檔名序號一致。
+ */
 export async function syncRecordToDrive(
   record: AirtableRecord,
-  photos: DownloadedPhoto[],
+  attachments: DownloadedFile[],
   ts: ResolvedTimestamp,
 ): Promise<void> {
   const drive = getDrive();
@@ -100,13 +102,19 @@ export async function syncRecordToDrive(
   const folderId = await ensureFolder(drive, rootId, date);
   const prefix = `${date}_${record.recordId}`;
 
-  const photoNames: string[] = [];
-  for (let i = 0; i < photos.length; i++) {
-    const ext = extname(photos[i].filename) || '.jpg';
-    const name = `${prefix}_${seq(i)}${ext}`;
-    photoNames.push(name);
-    await upsertFile(drive, folderId, name, photos[i].type || 'image/jpeg', photos[i].buffer);
+  const fileNames: string[] = [];
+  for (let i = 0; i < attachments.length; i++) {
+    const ext = extname(attachments[i].filename) || '.jpg';
+    const name = `${prefix}_${seqPad(i + 1)}${ext}`;
+    fileNames.push(name);
+    await upsertFile(
+      drive,
+      folderId,
+      name,
+      attachments[i].type || 'application/octet-stream',
+      attachments[i].buffer,
+    );
   }
 
-  await upsertFile(drive, folderId, `${prefix}.txt`, 'text/plain; charset=utf-8', buildTxt(record, ts, photoNames));
+  await upsertFile(drive, folderId, `${prefix}.txt`, 'text/plain; charset=utf-8', buildTxt(record, ts, fileNames));
 }
