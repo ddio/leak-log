@@ -1,5 +1,504 @@
 [
   {
+    "id": "recIjqCxDmXgxG4JU",
+    "eventTimestamp": "2026-08-07T14:26:18.000+08:00",
+    "uploadDate": "2026-08-08T00:52:57.000Z",
+    "title": "無觀測到滴水",
+    "description": "七樓排水灌水測試完畢，當下六樓與五樓都無觀測到滲水。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recIjqCxDmXgxG4JU/web/01.jpg",
+        "thumb": "img/recIjqCxDmXgxG4JU/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recgDOPxbyUpWE4at",
+    "eventTimestamp": "2026-08-07T10:20:22.500+08:00",
+    "uploadDate": "2026-08-08T01:01:52.000Z",
+    "title": "七樓完成排水污水管更換",
+    "description": "因為週三發現 703 共用同一組排水與污水管，所以週五進 703 浴室（只有一間），在牆角開孔，拉新的排水與污水管過去，週五下午已完成 701 所有管線，並灌水測試完成。\n\n703 已四十年無人居住，701 屋主表示已徵得 703 同意入屋施工。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recgDOPxbyUpWE4at/web/01.jpg",
+        "thumb": "img/recgDOPxbyUpWE4at/thumb/01.jpg"
+      },
+      {
+        "web": "img/recgDOPxbyUpWE4at/web/02.jpg",
+        "thumb": "img/recgDOPxbyUpWE4at/thumb/02.jpg"
+      },
+      {
+        "web": "img/recgDOPxbyUpWE4at/web/03.jpg",
+        "thumb": "img/recgDOPxbyUpWE4at/thumb/03.jpg"
+      },
+      {
+        "web": "img/recgDOPxbyUpWE4at/web/04.jpg",
+        "thumb": "img/recgDOPxbyUpWE4at/thumb/04.jpg"
+      },
+      {
+        "web": "img/recgDOPxbyUpWE4at/web/05.jpg",
+        "thumb": "img/recgDOPxbyUpWE4at/thumb/05.jpg"
+      },
+      {
+        "web": "img/recgDOPxbyUpWE4at/web/06.jpg",
+        "thumb": "img/recgDOPxbyUpWE4at/thumb/06.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "rec6UeZFrw9qGDpYR",
+    "eventTimestamp": "2026-08-06T09:30:00.000+08:00",
+    "uploadDate": "2026-08-08T00:49:54.000Z",
+    "title": "無觀測到滴水",
+    "description": "0806漏水紀錄：接水盤是乾的，頂部的地方手摸起來微微濕",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/rec6UeZFrw9qGDpYR/web/01.jpg",
+        "thumb": "img/rec6UeZFrw9qGDpYR/thumb/01.jpg"
+      },
+      {
+        "web": "img/rec6UeZFrw9qGDpYR/web/02.jpg",
+        "thumb": "img/rec6UeZFrw9qGDpYR/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recSe1TnGnNKmQ4sr",
+    "eventTimestamp": "2026-08-05T10:32:24.500+08:00",
+    "uploadDate": "2026-08-08T00:48:58.000Z",
+    "title": "無觀測到滴水",
+    "description": "",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recSe1TnGnNKmQ4sr/web/01.jpg",
+        "thumb": "img/recSe1TnGnNKmQ4sr/thumb/01.jpg"
+      },
+      {
+        "web": "img/recSe1TnGnNKmQ4sr/web/02.jpg",
+        "thumb": "img/recSe1TnGnNKmQ4sr/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recrXith8ebuGXXgW",
+    "eventTimestamp": "2026-08-05T10:29:32.000+08:00",
+    "uploadDate": "2026-08-08T00:48:21.000Z",
+    "title": "七樓浴室拆除現場紀錄",
+    "description": "今天早上有打到六樓了，跟樓下不同，七樓的小浴室下方，就是管道間，不像我們是放在邊邊。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recrXith8ebuGXXgW/web/01.jpg",
+        "thumb": "img/recrXith8ebuGXXgW/thumb/01.jpg"
+      },
+      {
+        "web": "img/recrXith8ebuGXXgW/web/02.jpg",
+        "thumb": "img/recrXith8ebuGXXgW/thumb/02.jpg"
+      },
+      {
+        "web": "img/recrXith8ebuGXXgW/web/03.jpg",
+        "thumb": "img/recrXith8ebuGXXgW/thumb/03.jpg"
+      },
+      {
+        "web": "img/recrXith8ebuGXXgW/web/04.jpg",
+        "thumb": "img/recrXith8ebuGXXgW/thumb/04.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recvpO9dmNQfTsBk1",
+    "eventTimestamp": "2026-08-04T10:20:43.000+08:00",
+    "uploadDate": "2026-08-08T00:46:19.000Z",
+    "title": "七樓浴室拆除現場紀錄",
+    "description": "701 0731 開拆，拆了小浴室地板和牆壁。\n\n看起來小浴室排水糞管當初沒換，都是鑄鐵管，這次會全部換掉。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/01.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/01.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/02.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/02.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/03.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/03.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/04.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/04.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/05.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/05.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/06.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/06.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/07.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/07.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/08.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/08.jpg"
+      },
+      {
+        "web": "img/recvpO9dmNQfTsBk1/web/09.jpg",
+        "thumb": "img/recvpO9dmNQfTsBk1/thumb/09.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recKDxUweic1VzHFs",
+    "eventTimestamp": "2026-08-04T10:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:43:55.000Z",
+    "title": "無觀測到滴水",
+    "description": "接水盤是乾的",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recKDxUweic1VzHFs/web/01.jpg",
+        "thumb": "img/recKDxUweic1VzHFs/thumb/01.jpg"
+      },
+      {
+        "web": "img/recKDxUweic1VzHFs/web/02.jpg",
+        "thumb": "img/recKDxUweic1VzHFs/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "reclP1OrjFzmdrEsW",
+    "eventTimestamp": "2026-08-03T10:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:42:59.000Z",
+    "title": "觀測到滴水",
+    "description": "接水盤大約6分滿。250+ 220 = 470\n\n推測可能是 0731 七樓拆除時的設備殘餘水",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/reclP1OrjFzmdrEsW/web/01.jpg",
+        "thumb": "img/reclP1OrjFzmdrEsW/thumb/01.jpg"
+      },
+      {
+        "web": "img/reclP1OrjFzmdrEsW/web/02.jpg",
+        "thumb": "img/reclP1OrjFzmdrEsW/thumb/02.jpg"
+      },
+      {
+        "web": "img/reclP1OrjFzmdrEsW/web/03.jpg",
+        "thumb": "img/reclP1OrjFzmdrEsW/thumb/03.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recxtwr5kxPLj14EH",
+    "eventTimestamp": "2026-07-31T09:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:41:29.000Z",
+    "title": "七樓開始浴室拆除工程",
+    "description": "大浴室馬桶、面盆，小浴室拆除磁磚與所有設備，小浴室地板打到見六樓天花板管道間",
+    "keyEvents": [],
+    "photos": [],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recMiRtS1FeANNfel",
+    "eventTimestamp": "2026-07-28T13:34:19.000+08:00",
+    "uploadDate": "2026-08-08T00:38:33.000Z",
+    "title": "無觀測到滴水",
+    "description": "滴水盤全乾，上方乾燥區域占一半，比上週更乾了。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recMiRtS1FeANNfel/web/01.jpg",
+        "thumb": "img/recMiRtS1FeANNfel/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recFGRFeRGRRKYmJc",
+    "eventTimestamp": "2026-07-27T10:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:37:32.000Z",
+    "title": "無觀測到滴水",
+    "description": "接水盤是乾的，滲水處有一半是乾的",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recFGRFeRGRRKYmJc/web/01.jpg",
+        "thumb": "img/recFGRFeRGRRKYmJc/thumb/01.jpg"
+      },
+      {
+        "web": "img/recFGRFeRGRRKYmJc/web/02.jpg",
+        "thumb": "img/recFGRFeRGRRKYmJc/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recHjo1mDV7chdLIi",
+    "eventTimestamp": "2026-07-23T10:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:36:25.000Z",
+    "title": "無觀測到滲水",
+    "description": "今天盒子乾的，上緣的水痕跟0722差不多",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recHjo1mDV7chdLIi/web/01.jpg",
+        "thumb": "img/recHjo1mDV7chdLIi/thumb/01.jpg"
+      },
+      {
+        "web": "img/recHjo1mDV7chdLIi/web/02.jpg",
+        "thumb": "img/recHjo1mDV7chdLIi/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recF4xqS2IdnUORuK",
+    "eventTimestamp": "2026-07-22T10:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:35:18.000Z",
+    "title": "無觀測到滴水",
+    "description": "今天盒子乾的，上緣的水痕，比0721範圍小",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recF4xqS2IdnUORuK/web/01.jpg",
+        "thumb": "img/recF4xqS2IdnUORuK/thumb/01.jpg"
+      },
+      {
+        "web": "img/recF4xqS2IdnUORuK/web/02.jpg",
+        "thumb": "img/recF4xqS2IdnUORuK/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "rec7s8X7AL6EuWOqy",
+    "eventTimestamp": "2026-07-21T10:00:00.000+08:00",
+    "uploadDate": "2026-08-08T00:32:56.000Z",
+    "title": "無觀測到滴水",
+    "description": "今天盒子乾的，上緣的水痕，也縮減到只剩一塊磚那麼長。",
+    "keyEvents": [],
+    "photos": [],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recDNJN2d64pMkJl2",
+    "eventTimestamp": "2026-07-20T10:04:08.500+08:00",
+    "uploadDate": "2026-08-08T00:31:48.000Z",
+    "title": "無觀測到滴水",
+    "description": "今天盒子乾的，上緣的水痕，也縮減到只剩一塊磚那麼長。",
+    "keyEvents": [
+      "開始無滴水"
+    ],
+    "photos": [
+      {
+        "web": "img/recDNJN2d64pMkJl2/web/01.jpg",
+        "thumb": "img/recDNJN2d64pMkJl2/thumb/01.jpg"
+      },
+      {
+        "web": "img/recDNJN2d64pMkJl2/web/02.jpg",
+        "thumb": "img/recDNJN2d64pMkJl2/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recBpO5KmVrrcqRcK",
+    "eventTimestamp": "2026-07-17T10:08:50.000+08:00",
+    "uploadDate": "2026-08-08T00:28:41.000Z",
+    "title": "持續紅色漏水",
+    "description": "淡紅色，昨天 1530 到今天 1010 ，大約 180ml ，平均每小時 10ml ，天花板可見緩慢滴水中。\n\n比較有可能是因為洗魚缸的前後，地板都有碰到一點水，大概一個寶特瓶的量。\n\n因為馬桶後來有倒了一大桶水 + 兩罐紫色色母，但昨天到今天，都沒看到紫色。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recBpO5KmVrrcqRcK/web/01.jpg",
+        "thumb": "img/recBpO5KmVrrcqRcK/thumb/01.jpg"
+      },
+      {
+        "web": "img/recBpO5KmVrrcqRcK/web/02.jpg",
+        "thumb": "img/recBpO5KmVrrcqRcK/thumb/02.jpg"
+      },
+      {
+        "web": "img/recBpO5KmVrrcqRcK/web/03.jpg",
+        "thumb": "img/recBpO5KmVrrcqRcK/thumb/03.jpg"
+      },
+      {
+        "web": "img/recBpO5KmVrrcqRcK/web/04.jpg",
+        "thumb": "img/recBpO5KmVrrcqRcK/thumb/04.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recPOIXoZRNxRp9HU",
+    "eventTimestamp": "2026-07-16T09:42:53.000+08:00",
+    "uploadDate": "2026-08-08T00:18:27.000Z",
+    "title": "早上無觀測到漏水，下午準備人工測試七樓",
+    "description": "早上更乾了一點，一樣無滴水。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recPOIXoZRNxRp9HU/web/01.jpg",
+        "thumb": "img/recPOIXoZRNxRp9HU/thumb/01.jpg"
+      },
+      {
+        "web": "img/recPOIXoZRNxRp9HU/web/02.jpg",
+        "thumb": "img/recPOIXoZRNxRp9HU/thumb/02.jpg"
+      },
+      {
+        "web": "img/recPOIXoZRNxRp9HU/web/03.jpg",
+        "thumb": "img/recPOIXoZRNxRp9HU/thumb/03.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "rec1Gsb2rVevmVVtu",
+    "eventTimestamp": "2026-07-15T10:42:31.000+08:00",
+    "uploadDate": "2026-08-08T00:17:05.000Z",
+    "title": "無觀測到滴水",
+    "description": "盒子一樣完全乾的，維修孔上方一樣溼潤，但右側角落已經開始乾燥，反光水痕只延續到平滑面，最右側的接近維修孔角落的那片是乾的",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/rec1Gsb2rVevmVVtu/web/01.jpg",
+        "thumb": "img/rec1Gsb2rVevmVVtu/thumb/01.jpg"
+      },
+      {
+        "web": "img/rec1Gsb2rVevmVVtu/web/02.jpg",
+        "thumb": "img/rec1Gsb2rVevmVVtu/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recN2DcXRHCD9JQpu",
+    "eventTimestamp": "2026-07-13T13:07:22.000+08:00",
+    "uploadDate": "2026-08-08T00:15:00.000Z",
+    "title": "無觀測到滴水",
+    "description": "今天看的時候盒子已乾，只有一處還有水痕，其餘則已積灰塵，推測至少乾了一兩天。\n\n維修孔上緣依然整片潮濕反光，但沒有滴水了。",
+    "keyEvents": [
+      "開始無滴水"
+    ],
+    "photos": [
+      {
+        "web": "img/recN2DcXRHCD9JQpu/web/01.jpg",
+        "thumb": "img/recN2DcXRHCD9JQpu/thumb/01.jpg"
+      },
+      {
+        "web": "img/recN2DcXRHCD9JQpu/web/02.jpg",
+        "thumb": "img/recN2DcXRHCD9JQpu/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recnXSO2MoJz5kjaf",
+    "eventTimestamp": "2026-07-07T11:27:46.500+08:00",
+    "uploadDate": "2026-08-08T00:12:42.000Z",
+    "title": "滴水量紀錄",
+    "description": "經過一天，集水約 50cc ，比昨天慢很多，維修孔上緣依然濕潤，但已無明顯滴水。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recnXSO2MoJz5kjaf/web/01.jpg",
+        "thumb": "img/recnXSO2MoJz5kjaf/thumb/01.jpg"
+      },
+      {
+        "web": "img/recnXSO2MoJz5kjaf/web/02.jpg",
+        "thumb": "img/recnXSO2MoJz5kjaf/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recl4NHUmbSLouZTi",
+    "eventTimestamp": "2026-07-07T10:30:00.000+08:00",
+    "uploadDate": "2026-08-08T00:09:43.000Z",
+    "title": "到六樓測天花板水分",
+    "description": "今天去看601的大浴室天花板，水分劑量測大約680 ，天花板壁癌雖然不嚴重，但如果只是剛做好一年多的話就不太正常",
+    "keyEvents": [
+      "水分測量"
+    ],
+    "photos": [],
+    "timestampSource": "manual"
+  },
+  {
+    "id": "recmjPRZSSmk3FZdZ",
+    "eventTimestamp": "2026-07-06T10:13:59.000+08:00",
+    "uploadDate": "2026-08-08T00:11:30.000Z",
+    "title": "滴水量紀錄",
+    "description": "週六 15：00 ~ 週一 10：00 ，集水大約 240cc ，平均一天約 130cc",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recmjPRZSSmk3FZdZ/web/01.jpg",
+        "thumb": "img/recmjPRZSSmk3FZdZ/thumb/01.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recHrDY9yJ7JYNt3o",
+    "eventTimestamp": "2026-07-04T15:07:17.000+08:00",
+    "uploadDate": "2026-08-08T00:06:17.000Z",
+    "title": "滲水持平或加速，七樓洗魚缸，六樓管道間觀察",
+    "description": "水是黃色的，昨天到現在 15：00 大約半杯 300ml ，滴水間隔 2 分鐘。\n\n701 回報昨晚 11：00 ，今天 10：50 分兩次洗魚缸，這次換了 40% 左右。 6/29 那次換了 80% 左右。\n\n15：00 也查了 601 管道間，手摸廢棄進水管無潮濕，中間的右側新 PVC 的背面（遠離維修孔的那面）微濕，已整根 + 進水管覆上衛生紙。",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recHrDY9yJ7JYNt3o/web/01.jpg",
+        "thumb": "img/recHrDY9yJ7JYNt3o/thumb/01.jpg"
+      },
+      {
+        "web": "img/recHrDY9yJ7JYNt3o/web/02.jpg",
+        "thumb": "img/recHrDY9yJ7JYNt3o/thumb/02.jpg"
+      },
+      {
+        "web": "img/recHrDY9yJ7JYNt3o/web/03.jpg",
+        "thumb": "img/recHrDY9yJ7JYNt3o/thumb/03.jpg"
+      },
+      {
+        "web": "img/recHrDY9yJ7JYNt3o/web/04.jpg",
+        "thumb": "img/recHrDY9yJ7JYNt3o/thumb/04.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "recaEc2ioXHECND6n",
+    "eventTimestamp": "2026-07-03T10:30:00.000+08:00",
+    "uploadDate": "2026-08-08T00:02:52.000Z",
+    "title": "滲水速度持續減緩",
+    "description": "0703漏水紀錄：衛生紙還是有黃色，水滴大約兩分半鐘一滴\n\n今天放了水瓢接水",
+    "keyEvents": [],
+    "photos": [
+      {
+        "web": "img/recaEc2ioXHECND6n/web/01.jpg",
+        "thumb": "img/recaEc2ioXHECND6n/thumb/01.jpg"
+      },
+      {
+        "web": "img/recaEc2ioXHECND6n/web/02.jpg",
+        "thumb": "img/recaEc2ioXHECND6n/thumb/02.jpg"
+      }
+    ],
+    "timestampSource": "manual"
+  },
+  {
     "id": "reca9ozSxZJuwfXtA",
     "eventTimestamp": "2026-07-02T10:36:31.000+08:00",
     "uploadDate": "2026-07-03T01:01:04.000Z",
