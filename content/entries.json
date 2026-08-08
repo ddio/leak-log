@@ -1,5 +1,88 @@
 [
   {
+    "id": "recBv6lKvIlsGJheV",
+    "eventTimestamp": "2026-07-16T15:28:16.000+08:00",
+    "uploadDate": "2026-08-08T00:26:45.000Z",
+    "title": "七樓色素水測試",
+    "description": "開始測色素水，馬桶兩罐紫色對一桶水，沒觀察到漏水。\n\n地排兩罐朱紅對一桶水，倒半桶，就看到六樓非常明顯滴水，也有看到顏色（影片後補），水量比 1500 大。\n\n1530 時，也開始可以在五樓管道間觀察到橘紅色滴水，1520 看的時候，還沒有滴水。\n\n--\n魚缸大概 1440 開始洗，其他確切時間點，我明天對一下縮時攝影。\n\n地排是 3-5 分鐘，六樓就看到沒錯，五樓還要再過十分鐘，所以是13-15 分鐘後。\n\n七樓今天有親自確認過六樓漏水，也已經聯繫他們的師傅來處理了，我屆時也會到場，確認他們會打開地板，兩條鑄鐵管都換掉，一路換到六樓天花板。\n\n七樓的浴室，去年沒參與整修，所以要完全由七樓自行處理。",
+    "keyEvents": [
+      "色素水測試"
+    ],
+    "media": [
+      {
+        "kind": "photo",
+        "seq": 1,
+        "web": "img/recBv6lKvIlsGJheV/web/01.jpg",
+        "thumb": "img/recBv6lKvIlsGJheV/thumb/01.jpg"
+      },
+      {
+        "kind": "photo",
+        "seq": 2,
+        "web": "img/recBv6lKvIlsGJheV/web/02.jpg",
+        "thumb": "img/recBv6lKvIlsGJheV/thumb/02.jpg"
+      },
+      {
+        "kind": "video",
+        "seq": 3,
+        "src": "img/recBv6lKvIlsGJheV/video/03.mp4",
+        "poster": "img/recBv6lKvIlsGJheV/video/03.jpg",
+        "duration": 35.5,
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "kind": "video",
+        "seq": 4,
+        "src": "img/recBv6lKvIlsGJheV/video/04.mp4",
+        "poster": "img/recBv6lKvIlsGJheV/video/04.jpg",
+        "duration": 18.1,
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "receGRrCUbUN6l56K",
+    "eventTimestamp": "2026-07-16T14:46:54.500+08:00",
+    "uploadDate": "2026-08-08T00:21:49.000Z",
+    "title": "開始七樓洗魚缸測試",
+    "description": "這段是洗魚缸，半缸魚缸水排到馬桶，前後會稍微沖一下地板，地板粗估水量不到 600ml 。\n\n開始洗之前，六樓管道間全乾，1500 時，差不多半缸魚缸水倒完，可以發現六樓管道間左後方明顯滴水（見影片）",
+    "keyEvents": [
+      "嚴重滲水"
+    ],
+    "media": [
+      {
+        "kind": "photo",
+        "seq": 1,
+        "web": "img/receGRrCUbUN6l56K/web/01.jpg",
+        "thumb": "img/receGRrCUbUN6l56K/thumb/01.jpg"
+      },
+      {
+        "kind": "photo",
+        "seq": 2,
+        "web": "img/receGRrCUbUN6l56K/web/02.jpg",
+        "thumb": "img/receGRrCUbUN6l56K/thumb/02.jpg"
+      },
+      {
+        "kind": "photo",
+        "seq": 3,
+        "web": "img/receGRrCUbUN6l56K/web/03.jpg",
+        "thumb": "img/receGRrCUbUN6l56K/thumb/03.jpg"
+      },
+      {
+        "kind": "video",
+        "seq": 4,
+        "src": "img/receGRrCUbUN6l56K/video/04.mp4",
+        "poster": "img/receGRrCUbUN6l56K/video/04.jpg",
+        "duration": 18.4,
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
     "id": "reca9ozSxZJuwfXtA",
     "eventTimestamp": "2026-07-02T10:36:31.000+08:00",
     "uploadDate": "2026-07-03T01:01:04.000Z",
