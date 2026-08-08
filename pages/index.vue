@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 時間軸首頁：依日分組、倒序。三欄（時間 / 軸 / 內容）。
-// 有照片的則 → 進 Lightbox；純文字則 → 進單則分享頁。
+// 有照片或影片的則 → 進 Lightbox；純文字則 → 進單則分享頁。
 const entries = useEntries()
 const groups = groupByDay(entries)
 const stats = useStats(entries)
@@ -8,8 +8,8 @@ const lastGroupKey = groups.length ? groups[groups.length - 1].key : null // 最
 
 const base = useRuntimeConfig().app.baseURL.replace(/\/$/, '')
 const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`
-const linkOf = (e: { id: string; photos: unknown[] }) =>
-  e.photos.length ? `/view?r=${e.id}` : `/r/${e.id}`
+const linkOf = (e: { id: string; media: unknown[] }) =>
+  e.media.length ? `/view?r=${e.id}` : `/r/${e.id}`
 
 useSeoMeta({
   title: '漏水狀況時間軸',
@@ -87,9 +87,13 @@ useSeoMeta({
               </div>
               <h2 v-if="e.title" class="entry-title" data-testid="entry-title">{{ e.title }}</h2>
               <p class="desc" data-testid="entry-desc">{{ e.description }}</p>
-              <div v-if="e.photos.length" class="thumbs" data-testid="entry-thumbs">
-                <span v-for="(p, i) in e.photos" :key="i" class="thumb" data-testid="entry-thumb">
-                  <img :src="asset(p.thumb)" :alt="`照片 ${i + 1}`" loading="lazy" />
+              <div v-if="e.media.length" class="thumbs" data-testid="entry-thumbs">
+                <span v-for="(m, i) in e.media" :key="i" class="thumb" data-testid="entry-thumb">
+                  <img :src="asset(mediaThumb(m))" :alt="`附件 ${i + 1}`" loading="lazy" />
+                  <span v-if="m.kind === 'video'" class="play" data-testid="entry-thumb-video">
+                    <span class="tri">▶</span>
+                    <span class="mono dur">{{ formatDuration(m.duration) }}</span>
+                  </span>
                 </span>
               </div>
             </div>
@@ -355,6 +359,7 @@ useSeoMeta({
   margin-top: 8px;
 }
 .thumb {
+  position: relative;
   flex: 0 1 110px;
   aspect-ratio: 3 / 2;
   border-radius: var(--r-sm);
@@ -370,5 +375,27 @@ useSeoMeta({
   height: 100%;
   object-fit: cover;
   display: block;
+}
+/* 影片縮圖：左下角播放記號 + 長度，跟照片一眼可分 */
+.play {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 5px;
+  border-radius: var(--r-sm);
+  background: rgba(20, 20, 20, 0.72);
+}
+.play .tri {
+  font-size: 8px;
+  color: #fff;
+  line-height: 1;
+}
+.play .dur {
+  font-size: 9px;
+  color: #fff;
+  line-height: 1;
 }
 </style>

@@ -3,7 +3,7 @@
  * 一律用 returnFieldsByFieldId，fields 以欄位 ID 為 key。
  */
 import { requireEnv, FIELDS } from './config.ts';
-import type { AirtableRecord, AirtablePhoto } from './types.ts';
+import type { AirtableRecord, AirtableAttachment } from './types.ts';
 
 const API = 'https://api.airtable.com/v0';
 
@@ -59,12 +59,12 @@ function parseKeyEvents(value: unknown): string[] {
 
 function toRecord(raw: RawRecord): AirtableRecord {
   const f = raw.fields ?? {};
-  const photosRaw = (f[FIELDS.photos] as Array<Record<string, string>>) ?? [];
-  const photos: AirtablePhoto[] = photosRaw.map((p) => ({
-    id: p.id,
-    url: p.url,
-    filename: p.filename,
-    type: p.type,
+  const attachmentsRaw = (f[FIELDS.attachments] as Array<Record<string, string>>) ?? [];
+  const attachments: AirtableAttachment[] = attachmentsRaw.map((a) => ({
+    id: a.id,
+    url: a.url,
+    filename: a.filename,
+    type: a.type,
   }));
   return {
     recordId: raw.id,
@@ -72,7 +72,7 @@ function toRecord(raw: RawRecord): AirtableRecord {
     description: (f[FIELDS.description] as string) ?? '',
     manualTimestamp: (f[FIELDS.manualTimestamp] as string) ?? null,
     keyEvents: parseKeyEvents(f[FIELDS.keyEvents]),
-    photos,
+    attachments,
     createdTime: raw.createdTime,
   };
 }

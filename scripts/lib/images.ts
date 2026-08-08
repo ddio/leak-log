@@ -5,40 +5,39 @@
  * 原圖不經這裡處理（保留 EXIF 進 Drive 當存檔）。
  */
 import sharp from 'sharp';
-import { mkdir, rm } from 'node:fs/promises';
+import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { IMG_DIR } from './config.ts';
-import type { DownloadedPhoto } from './download.ts';
-import type { ProcessedPhoto } from './types.ts';
+import { seqPad } from './media.ts';
+import type { DownloadedFile } from './download.ts';
+import type { PhotoMedia } from './types.ts';
 
 const WEB_MAX = 2048;
 const THUMB_MAX = 600;
 const QUALITY = 80;
 
-const seq = (i: number): string => String(i + 1).padStart(2, '0');
-
 /**
  * 處理一筆 record 的所有照片，輸出到 public/img/{recordId}/{web,thumb}/NN.jpg。
- * 會先清掉該 record 既有的圖片資料夾，支援重新同步覆寫（含照片數變少的情況）。
- * 回傳相對站台根的路徑（不含 baseURL）。
+ * NN 是該附件在 record 內的序號，與影片共用同一個計數器（所以可能不連號，
+ * 例如照片、影片、照片 → 01.jpg、02.mp4、03.jpg）。
+ * 呼叫前必須先 clearRecordMedia()。回傳相對站台根的路徑（不含 baseURL）。
  */
 export async function processPhotos(
   recordId: string,
-  photos: DownloadedPhoto[],
-): Promise<ProcessedPhoto[]> {
-  const recDir = join(IMG_DIR, recordId);
-  await rm(recDir, { recursive: true, force: true });
-  if (photos.length === 0) return [];
+  items: { file: DownloadedFile; seq: number }[],
+): Promise<PhotoMedia[]> {
+  if (items.length === 0) return [];
 
+  const recDir = join(IMG_DIR, recordId);
   const webDir = join(recDir, 'web');
   const thumbDir = join(recDir, 'thumb');
   await mkdir(webDir, { recursive: true });
   await mkdir(thumbDir, { recursive: true });
 
-  const out: ProcessedPhoto[] = [];
-  for (let i = 0; i < photos.length; i++) {
-    const n = seq(i);
-    const base = sharp(photos[i].buffer).rotate(); // 轉正；之後不帶 metadata = 去 GPS
+  const out: PhotoMedia[] = [];
+  for (const { file, seq } of items) {
+    const n = seqPad(seq);
+    const base = sharp(file.buffer).rotate(); // 轉正；之後不帶 metadata = 去 GPS
 
     await base
       .clone()
@@ -53,6 +52,8 @@ export async function processPhotos(
       .toFile(join(thumbDir, `${n}.jpg`));
 
     out.push({
+      kind: 'photo',
+      seq,
       web: `img/${recordId}/web/${n}.jpg`,
       thumb: `img/${recordId}/thumb/${n}.jpg`,
     });

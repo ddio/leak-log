@@ -38,7 +38,12 @@ jobs:
 
       - run: npm ci
 
-      - name: Sync Airtable -> Drive + entries.json + images
+      # ubuntu-latest runner image 沒有預裝 ffmpeg（查過 runner-images 的
+      # Ubuntu2404-Readme），影片轉檔與 ffprobe 讀拍攝時間都要用。
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Sync Airtable -> Drive + entries.json + media
         run: npm run sync
         env:
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}

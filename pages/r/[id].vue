@@ -17,7 +17,10 @@ const dateSlash = formatDateSlash(e.eventTimestamp)
 const headline = e.title || e.keyEvents[0] || '漏水紀錄'
 const shareTitle = `${headline} · ${dateSlash}`
 const excerpt = e.description.replace(/\s+/g, ' ').trim().slice(0, 100)
-const ogImage = e.photos[0] ? absolute(e.photos[0].web) : undefined
+// OG 卡與 LINE unfurl 只吃圖片，不能餵 mp4 —— 純影片的紀錄改用封面幀
+const cover = coverMedia(e)
+const coverPath = coverImage(e)
+const ogImage = coverPath ? absolute(coverPath) : undefined
 
 useSeoMeta({
   title: shareTitle,
@@ -38,9 +41,9 @@ useSeoMeta({
         <span class="mono label">返回時間軸 · LEAK-LOG</span>
       </NuxtLink>
 
-      <div v-if="e.photos[0]" class="hero" data-testid="share-hero">
-        <img :src="asset(e.photos[0].web)" alt="" />
-        <span class="mono filename">{{ seqName(0) }}</span>
+      <div v-if="cover && coverPath" class="hero" data-testid="share-hero">
+        <img :src="asset(coverPath)" alt="" />
+        <span class="mono filename">{{ mediaName(cover) }}</span>
       </div>
 
       <div class="body">
@@ -57,16 +60,20 @@ useSeoMeta({
 
         <p v-if="e.description" class="desc" data-testid="share-desc">{{ e.description }}</p>
 
-        <div v-if="e.photos.length" class="photos" data-testid="share-photos">
+        <div v-if="e.media.length" class="photos" data-testid="share-photos">
           <NuxtLink
-            v-for="(p, i) in e.photos"
+            v-for="(m, i) in e.media"
             :key="i"
             :to="`/view?r=${e.id}&p=${i}`"
             class="photo"
             data-testid="share-photo"
           >
-            <img :src="asset(p.thumb)" :alt="`照片 ${i + 1}`" loading="lazy" />
-            <span class="mono filename sm">{{ seqName(i, '') }}</span>
+            <img :src="asset(mediaThumb(m))" :alt="`附件 ${i + 1}`" loading="lazy" />
+            <span v-if="m.kind === 'video'" class="play" data-testid="share-photo-video">
+              <span class="tri">▶</span>
+              <span class="mono dur">{{ formatDuration(m.duration) }}</span>
+            </span>
+            <span class="mono filename sm">{{ seqName(m.seq - 1, '') }}</span>
           </NuxtLink>
         </div>
 
@@ -74,7 +81,7 @@ useSeoMeta({
           <div class="mono og-label">分享預覽</div>
           <div class="og-card" data-testid="share-og-card">
             <div class="og-thumb">
-              <img v-if="e.photos[0]" :src="asset(e.photos[0].thumb)" alt="" />
+              <img v-if="cover" :src="asset(mediaThumb(cover))" alt="" />
             </div>
             <div class="og-text">
               <div class="og-title" data-testid="share-og-title">{{ shareTitle }}</div>
@@ -83,7 +90,9 @@ useSeoMeta({
           </div>
         </div>
 
-        <div class="mono footnote" data-testid="share-footnote">已移除 EXIF 地理資訊 · 最大邊 2048px · 提供縮圖</div>
+        <div class="mono footnote" data-testid="share-footnote">
+          已移除 EXIF 地理資訊 · 照片最大邊 2048px · 影片 720p 並清除 metadata
+        </div>
 
         <SiteFooter />
       </div>
@@ -213,6 +222,28 @@ useSeoMeta({
   height: 100%;
   object-fit: cover;
   display: block;
+}
+/* 影片：播放記號放右下，左下留給檔名序號 */
+.play {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: var(--r-sm);
+  background: rgba(20, 20, 20, 0.72);
+}
+.play .tri {
+  font-size: 8px;
+  color: #fff;
+  line-height: 1;
+}
+.play .dur {
+  font-size: 9px;
+  color: #fff;
+  line-height: 1;
 }
 .og {
   border-top: 1px solid var(--border);

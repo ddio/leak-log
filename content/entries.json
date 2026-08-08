@@ -6,13 +6,15 @@
     "title": "無觀測到滴水",
     "description": "七樓排水灌水測試完畢，當下六樓與五樓都無觀測到滲水。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recIjqCxDmXgxG4JU/web/01.jpg",
         "thumb": "img/recIjqCxDmXgxG4JU/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recgDOPxbyUpWE4at",
@@ -21,33 +23,45 @@
     "title": "七樓完成排水污水管更換",
     "description": "因為週三發現 703 共用同一組排水與污水管，所以週五進 703 浴室（只有一間），在牆角開孔，拉新的排水與污水管過去，週五下午已完成 701 所有管線，並灌水測試完成。\n\n703 已四十年無人居住，701 屋主表示已徵得 703 同意入屋施工。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recgDOPxbyUpWE4at/web/01.jpg",
         "thumb": "img/recgDOPxbyUpWE4at/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recgDOPxbyUpWE4at/web/02.jpg",
         "thumb": "img/recgDOPxbyUpWE4at/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recgDOPxbyUpWE4at/web/03.jpg",
         "thumb": "img/recgDOPxbyUpWE4at/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recgDOPxbyUpWE4at/web/04.jpg",
         "thumb": "img/recgDOPxbyUpWE4at/thumb/04.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 5,
         "web": "img/recgDOPxbyUpWE4at/web/05.jpg",
         "thumb": "img/recgDOPxbyUpWE4at/thumb/05.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 6,
         "web": "img/recgDOPxbyUpWE4at/web/06.jpg",
         "thumb": "img/recgDOPxbyUpWE4at/thumb/06.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "rec6UeZFrw9qGDpYR",
@@ -56,17 +70,21 @@
     "title": "無觀測到滴水",
     "description": "0806漏水紀錄：接水盤是乾的，頂部的地方手摸起來微微濕",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/rec6UeZFrw9qGDpYR/web/01.jpg",
         "thumb": "img/rec6UeZFrw9qGDpYR/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/rec6UeZFrw9qGDpYR/web/02.jpg",
         "thumb": "img/rec6UeZFrw9qGDpYR/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recSe1TnGnNKmQ4sr",
@@ -75,17 +93,21 @@
     "title": "無觀測到滴水",
     "description": "",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recSe1TnGnNKmQ4sr/web/01.jpg",
         "thumb": "img/recSe1TnGnNKmQ4sr/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recSe1TnGnNKmQ4sr/web/02.jpg",
         "thumb": "img/recSe1TnGnNKmQ4sr/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recrXith8ebuGXXgW",
@@ -94,25 +116,33 @@
     "title": "七樓浴室拆除現場紀錄",
     "description": "今天早上有打到六樓了，跟樓下不同，七樓的小浴室下方，就是管道間，不像我們是放在邊邊。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recrXith8ebuGXXgW/web/01.jpg",
         "thumb": "img/recrXith8ebuGXXgW/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recrXith8ebuGXXgW/web/02.jpg",
         "thumb": "img/recrXith8ebuGXXgW/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recrXith8ebuGXXgW/web/03.jpg",
         "thumb": "img/recrXith8ebuGXXgW/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recrXith8ebuGXXgW/web/04.jpg",
         "thumb": "img/recrXith8ebuGXXgW/thumb/04.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recvpO9dmNQfTsBk1",
@@ -121,45 +151,63 @@
     "title": "七樓浴室拆除現場紀錄",
     "description": "701 0731 開拆，拆了小浴室地板和牆壁。\n\n看起來小浴室排水糞管當初沒換，都是鑄鐵管，這次會全部換掉。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recvpO9dmNQfTsBk1/web/01.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recvpO9dmNQfTsBk1/web/02.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recvpO9dmNQfTsBk1/web/03.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recvpO9dmNQfTsBk1/web/04.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/04.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 5,
         "web": "img/recvpO9dmNQfTsBk1/web/05.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/05.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 6,
         "web": "img/recvpO9dmNQfTsBk1/web/06.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/06.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 7,
         "web": "img/recvpO9dmNQfTsBk1/web/07.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/07.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 8,
         "web": "img/recvpO9dmNQfTsBk1/web/08.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/08.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 9,
         "web": "img/recvpO9dmNQfTsBk1/web/09.jpg",
         "thumb": "img/recvpO9dmNQfTsBk1/thumb/09.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recKDxUweic1VzHFs",
@@ -168,17 +216,21 @@
     "title": "無觀測到滴水",
     "description": "接水盤是乾的",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recKDxUweic1VzHFs/web/01.jpg",
         "thumb": "img/recKDxUweic1VzHFs/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recKDxUweic1VzHFs/web/02.jpg",
         "thumb": "img/recKDxUweic1VzHFs/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "reclP1OrjFzmdrEsW",
@@ -187,21 +239,27 @@
     "title": "觀測到滴水",
     "description": "接水盤大約6分滿。250+ 220 = 470\n\n推測可能是 0731 七樓拆除時的設備殘餘水",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/reclP1OrjFzmdrEsW/web/01.jpg",
         "thumb": "img/reclP1OrjFzmdrEsW/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/reclP1OrjFzmdrEsW/web/02.jpg",
         "thumb": "img/reclP1OrjFzmdrEsW/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/reclP1OrjFzmdrEsW/web/03.jpg",
         "thumb": "img/reclP1OrjFzmdrEsW/thumb/03.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recxtwr5kxPLj14EH",
@@ -210,8 +268,8 @@
     "title": "七樓開始浴室拆除工程",
     "description": "大浴室馬桶、面盆，小浴室拆除磁磚與所有設備，小浴室地板打到見六樓天花板管道間",
     "keyEvents": [],
-    "photos": [],
-    "timestampSource": "manual"
+    "timestampSource": "manual",
+    "media": []
   },
   {
     "id": "recMiRtS1FeANNfel",
@@ -220,13 +278,15 @@
     "title": "無觀測到滴水",
     "description": "滴水盤全乾，上方乾燥區域占一半，比上週更乾了。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recMiRtS1FeANNfel/web/01.jpg",
         "thumb": "img/recMiRtS1FeANNfel/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recFGRFeRGRRKYmJc",
@@ -235,17 +295,21 @@
     "title": "無觀測到滴水",
     "description": "接水盤是乾的，滲水處有一半是乾的",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recFGRFeRGRRKYmJc/web/01.jpg",
         "thumb": "img/recFGRFeRGRRKYmJc/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recFGRFeRGRRKYmJc/web/02.jpg",
         "thumb": "img/recFGRFeRGRRKYmJc/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recHjo1mDV7chdLIi",
@@ -254,17 +318,21 @@
     "title": "無觀測到滲水",
     "description": "今天盒子乾的，上緣的水痕跟0722差不多",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recHjo1mDV7chdLIi/web/01.jpg",
         "thumb": "img/recHjo1mDV7chdLIi/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recHjo1mDV7chdLIi/web/02.jpg",
         "thumb": "img/recHjo1mDV7chdLIi/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recF4xqS2IdnUORuK",
@@ -273,17 +341,21 @@
     "title": "無觀測到滴水",
     "description": "今天盒子乾的，上緣的水痕，比0721範圍小",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recF4xqS2IdnUORuK/web/01.jpg",
         "thumb": "img/recF4xqS2IdnUORuK/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recF4xqS2IdnUORuK/web/02.jpg",
         "thumb": "img/recF4xqS2IdnUORuK/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "rec7s8X7AL6EuWOqy",
@@ -292,8 +364,8 @@
     "title": "無觀測到滴水",
     "description": "今天盒子乾的，上緣的水痕，也縮減到只剩一塊磚那麼長。",
     "keyEvents": [],
-    "photos": [],
-    "timestampSource": "manual"
+    "timestampSource": "manual",
+    "media": []
   },
   {
     "id": "recDNJN2d64pMkJl2",
@@ -304,17 +376,21 @@
     "keyEvents": [
       "開始無滴水"
     ],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recDNJN2d64pMkJl2/web/01.jpg",
         "thumb": "img/recDNJN2d64pMkJl2/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recDNJN2d64pMkJl2/web/02.jpg",
         "thumb": "img/recDNJN2d64pMkJl2/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recBpO5KmVrrcqRcK",
@@ -323,22 +399,116 @@
     "title": "持續紅色漏水",
     "description": "淡紅色，昨天 1530 到今天 1010 ，大約 180ml ，平均每小時 10ml ，天花板可見緩慢滴水中。\n\n比較有可能是因為洗魚缸的前後，地板都有碰到一點水，大概一個寶特瓶的量。\n\n因為馬桶後來有倒了一大桶水 + 兩罐紫色色母，但昨天到今天，都沒看到紫色。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recBpO5KmVrrcqRcK/web/01.jpg",
         "thumb": "img/recBpO5KmVrrcqRcK/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recBpO5KmVrrcqRcK/web/02.jpg",
         "thumb": "img/recBpO5KmVrrcqRcK/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recBpO5KmVrrcqRcK/web/03.jpg",
         "thumb": "img/recBpO5KmVrrcqRcK/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recBpO5KmVrrcqRcK/web/04.jpg",
         "thumb": "img/recBpO5KmVrrcqRcK/thumb/04.jpg"
+      }
+    ]
+  },
+  {
+    "id": "recBv6lKvIlsGJheV",
+    "eventTimestamp": "2026-07-16T15:28:16.000+08:00",
+    "uploadDate": "2026-08-08T00:26:45.000Z",
+    "title": "七樓色素水測試",
+    "description": "開始測色素水，馬桶兩罐紫色對一桶水，沒觀察到漏水。\n\n地排兩罐朱紅對一桶水，倒半桶，就看到六樓非常明顯滴水，也有看到顏色（影片後補），水量比 1500 大。\n\n1530 時，也開始可以在五樓管道間觀察到橘紅色滴水，1520 看的時候，還沒有滴水。\n\n--\n魚缸大概 1440 開始洗，其他確切時間點，我明天對一下縮時攝影。\n\n地排是 3-5 分鐘，六樓就看到沒錯，五樓還要再過十分鐘，所以是13-15 分鐘後。\n\n七樓今天有親自確認過六樓漏水，也已經聯繫他們的師傅來處理了，我屆時也會到場，確認他們會打開地板，兩條鑄鐵管都換掉，一路換到六樓天花板。\n\n七樓的浴室，去年沒參與整修，所以要完全由七樓自行處理。",
+    "keyEvents": [
+      "色素水測試"
+    ],
+    "media": [
+      {
+        "kind": "photo",
+        "seq": 1,
+        "web": "img/recBv6lKvIlsGJheV/web/01.jpg",
+        "thumb": "img/recBv6lKvIlsGJheV/thumb/01.jpg"
+      },
+      {
+        "kind": "photo",
+        "seq": 2,
+        "web": "img/recBv6lKvIlsGJheV/web/02.jpg",
+        "thumb": "img/recBv6lKvIlsGJheV/thumb/02.jpg"
+      },
+      {
+        "kind": "video",
+        "seq": 3,
+        "src": "img/recBv6lKvIlsGJheV/video/03.mp4",
+        "poster": "img/recBv6lKvIlsGJheV/video/03.jpg",
+        "duration": 35.5,
+        "width": 720,
+        "height": 1280,
+        "thumb": "img/recBv6lKvIlsGJheV/video/03.thumb.jpg"
+      },
+      {
+        "kind": "video",
+        "seq": 4,
+        "src": "img/recBv6lKvIlsGJheV/video/04.mp4",
+        "poster": "img/recBv6lKvIlsGJheV/video/04.jpg",
+        "duration": 18.1,
+        "width": 1280,
+        "height": 720,
+        "thumb": "img/recBv6lKvIlsGJheV/video/04.thumb.jpg"
+      }
+    ],
+    "timestampSource": "exif-median"
+  },
+  {
+    "id": "receGRrCUbUN6l56K",
+    "eventTimestamp": "2026-07-16T14:46:54.500+08:00",
+    "uploadDate": "2026-08-08T00:21:49.000Z",
+    "title": "開始七樓洗魚缸測試",
+    "description": "這段是洗魚缸，半缸魚缸水排到馬桶，前後會稍微沖一下地板，地板粗估水量不到 600ml 。\n\n開始洗之前，六樓管道間全乾，1500 時，差不多半缸魚缸水倒完，可以發現六樓管道間左後方明顯滴水（見影片）",
+    "keyEvents": [
+      "嚴重滲水"
+    ],
+    "media": [
+      {
+        "kind": "photo",
+        "seq": 1,
+        "web": "img/receGRrCUbUN6l56K/web/01.jpg",
+        "thumb": "img/receGRrCUbUN6l56K/thumb/01.jpg"
+      },
+      {
+        "kind": "photo",
+        "seq": 2,
+        "web": "img/receGRrCUbUN6l56K/web/02.jpg",
+        "thumb": "img/receGRrCUbUN6l56K/thumb/02.jpg"
+      },
+      {
+        "kind": "photo",
+        "seq": 3,
+        "web": "img/receGRrCUbUN6l56K/web/03.jpg",
+        "thumb": "img/receGRrCUbUN6l56K/thumb/03.jpg"
+      },
+      {
+        "kind": "video",
+        "seq": 4,
+        "src": "img/receGRrCUbUN6l56K/video/04.mp4",
+        "poster": "img/receGRrCUbUN6l56K/video/04.jpg",
+        "duration": 18.4,
+        "width": 1280,
+        "height": 720,
+        "thumb": "img/receGRrCUbUN6l56K/video/04.thumb.jpg"
       }
     ],
     "timestampSource": "exif-median"
@@ -350,21 +520,27 @@
     "title": "早上無觀測到漏水，下午準備人工測試七樓",
     "description": "早上更乾了一點，一樣無滴水。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recPOIXoZRNxRp9HU/web/01.jpg",
         "thumb": "img/recPOIXoZRNxRp9HU/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recPOIXoZRNxRp9HU/web/02.jpg",
         "thumb": "img/recPOIXoZRNxRp9HU/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recPOIXoZRNxRp9HU/web/03.jpg",
         "thumb": "img/recPOIXoZRNxRp9HU/thumb/03.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "rec1Gsb2rVevmVVtu",
@@ -373,17 +549,21 @@
     "title": "無觀測到滴水",
     "description": "盒子一樣完全乾的，維修孔上方一樣溼潤，但右側角落已經開始乾燥，反光水痕只延續到平滑面，最右側的接近維修孔角落的那片是乾的",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/rec1Gsb2rVevmVVtu/web/01.jpg",
         "thumb": "img/rec1Gsb2rVevmVVtu/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/rec1Gsb2rVevmVVtu/web/02.jpg",
         "thumb": "img/rec1Gsb2rVevmVVtu/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recN2DcXRHCD9JQpu",
@@ -394,17 +574,21 @@
     "keyEvents": [
       "開始無滴水"
     ],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recN2DcXRHCD9JQpu/web/01.jpg",
         "thumb": "img/recN2DcXRHCD9JQpu/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recN2DcXRHCD9JQpu/web/02.jpg",
         "thumb": "img/recN2DcXRHCD9JQpu/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recnXSO2MoJz5kjaf",
@@ -413,17 +597,21 @@
     "title": "滴水量紀錄",
     "description": "經過一天，集水約 50cc ，比昨天慢很多，維修孔上緣依然濕潤，但已無明顯滴水。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recnXSO2MoJz5kjaf/web/01.jpg",
         "thumb": "img/recnXSO2MoJz5kjaf/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recnXSO2MoJz5kjaf/web/02.jpg",
         "thumb": "img/recnXSO2MoJz5kjaf/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recl4NHUmbSLouZTi",
@@ -434,8 +622,8 @@
     "keyEvents": [
       "水分測量"
     ],
-    "photos": [],
-    "timestampSource": "manual"
+    "timestampSource": "manual",
+    "media": []
   },
   {
     "id": "recmjPRZSSmk3FZdZ",
@@ -444,13 +632,15 @@
     "title": "滴水量紀錄",
     "description": "週六 15：00 ~ 週一 10：00 ，集水大約 240cc ，平均一天約 130cc",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recmjPRZSSmk3FZdZ/web/01.jpg",
         "thumb": "img/recmjPRZSSmk3FZdZ/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recHrDY9yJ7JYNt3o",
@@ -459,25 +649,33 @@
     "title": "滲水持平或加速，七樓洗魚缸，六樓管道間觀察",
     "description": "水是黃色的，昨天到現在 15：00 大約半杯 300ml ，滴水間隔 2 分鐘。\n\n701 回報昨晚 11：00 ，今天 10：50 分兩次洗魚缸，這次換了 40% 左右。 6/29 那次換了 80% 左右。\n\n15：00 也查了 601 管道間，手摸廢棄進水管無潮濕，中間的右側新 PVC 的背面（遠離維修孔的那面）微濕，已整根 + 進水管覆上衛生紙。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recHrDY9yJ7JYNt3o/web/01.jpg",
         "thumb": "img/recHrDY9yJ7JYNt3o/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recHrDY9yJ7JYNt3o/web/02.jpg",
         "thumb": "img/recHrDY9yJ7JYNt3o/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recHrDY9yJ7JYNt3o/web/03.jpg",
         "thumb": "img/recHrDY9yJ7JYNt3o/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recHrDY9yJ7JYNt3o/web/04.jpg",
         "thumb": "img/recHrDY9yJ7JYNt3o/thumb/04.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recaEc2ioXHECND6n",
@@ -486,17 +684,21 @@
     "title": "滲水速度持續減緩",
     "description": "0703漏水紀錄：衛生紙還是有黃色，水滴大約兩分半鐘一滴\n\n今天放了水瓢接水",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recaEc2ioXHECND6n/web/01.jpg",
         "thumb": "img/recaEc2ioXHECND6n/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recaEc2ioXHECND6n/web/02.jpg",
         "thumb": "img/recaEc2ioXHECND6n/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "reca9ozSxZJuwfXtA",
@@ -505,13 +707,15 @@
     "title": "滲水速度持續減緩",
     "description": "今天黃色量沒明顯變化，滴水稍緩，變成 40 秒一滴。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/reca9ozSxZJuwfXtA/web/01.jpg",
         "thumb": "img/reca9ozSxZJuwfXtA/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recTq3nmJ2g9r6b5j",
@@ -520,17 +724,21 @@
     "title": "滲水速度稍微減緩",
     "description": "今天早上十點半拍的，黃色規模和昨天差不多，滴水速度大概 30 秒一滴，看來有減緩。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recTq3nmJ2g9r6b5j/web/01.jpg",
         "thumb": "img/recTq3nmJ2g9r6b5j/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recTq3nmJ2g9r6b5j/web/02.jpg",
         "thumb": "img/recTq3nmJ2g9r6b5j/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "rec7HcSjhQyyjrFRY",
@@ -541,8 +749,8 @@
     "keyEvents": [
       "嚴重滲水"
     ],
-    "photos": [],
-    "timestampSource": "manual"
+    "timestampSource": "manual",
+    "media": []
   },
   {
     "id": "recrxUJ0BHB44d6vJ",
@@ -553,17 +761,21 @@
     "keyEvents": [
       "嚴重滲水"
     ],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recrxUJ0BHB44d6vJ/web/01.jpg",
         "thumb": "img/recrxUJ0BHB44d6vJ/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recrxUJ0BHB44d6vJ/web/02.jpg",
         "thumb": "img/recrxUJ0BHB44d6vJ/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "rectFEWqrywOh0wnb",
@@ -574,13 +786,15 @@
     "keyEvents": [
       "潛在漏水原因"
     ],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/rectFEWqrywOh0wnb/web/01.jpg",
         "thumb": "img/rectFEWqrywOh0wnb/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "reckbUx65F1Qy4EDM",
@@ -589,17 +803,21 @@
     "title": "持續漏水，速度減緩",
     "description": "0629漏水紀錄：衛生紙明顯黃色，水渧約3.5分鐘一諦",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/reckbUx65F1Qy4EDM/web/01.jpg",
         "thumb": "img/reckbUx65F1Qy4EDM/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/reckbUx65F1Qy4EDM/web/02.jpg",
         "thumb": "img/reckbUx65F1Qy4EDM/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recDFqi2YqkHsJPyL",
@@ -608,8 +826,8 @@
     "title": "601 晚間泡澡",
     "description": "與住戶訪談得知",
     "keyEvents": [],
-    "photos": [],
-    "timestampSource": "manual"
+    "timestampSource": "manual",
+    "media": []
   },
   {
     "id": "recKK19p6jIZRgond",
@@ -618,21 +836,27 @@
     "title": "持續漏水，速度減緩",
     "description": "剛剛的，一樣兩處黃色，水滴 130 秒一滴",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recKK19p6jIZRgond/web/01.jpg",
         "thumb": "img/recKK19p6jIZRgond/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recKK19p6jIZRgond/web/02.jpg",
         "thumb": "img/recKK19p6jIZRgond/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recKK19p6jIZRgond/web/03.jpg",
         "thumb": "img/recKK19p6jIZRgond/thumb/03.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "rec2XCEGTc94eR4z9",
@@ -641,13 +865,15 @@
     "title": "持續黃色漏水",
     "description": "0626漏水紀錄：衛生紙有黃色，水滴速度約70秒",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/rec2XCEGTc94eR4z9/web/01.jpg",
         "thumb": "img/rec2XCEGTc94eR4z9/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recJ7Z7XrxVjDyr0s",
@@ -658,29 +884,39 @@
     "keyEvents": [
       "色素水測試"
     ],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recJ7Z7XrxVjDyr0s/web/01.jpg",
         "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recJ7Z7XrxVjDyr0s/web/02.jpg",
         "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recJ7Z7XrxVjDyr0s/web/03.jpg",
         "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recJ7Z7XrxVjDyr0s/web/04.jpg",
         "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/04.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 5,
         "web": "img/recJ7Z7XrxVjDyr0s/web/05.jpg",
         "thumb": "img/recJ7Z7XrxVjDyr0s/thumb/05.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recAOR2t1yplUONJ7",
@@ -691,33 +927,45 @@
     "keyEvents": [
       "水分測量"
     ],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recAOR2t1yplUONJ7/web/01.jpg",
         "thumb": "img/recAOR2t1yplUONJ7/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recAOR2t1yplUONJ7/web/02.jpg",
         "thumb": "img/recAOR2t1yplUONJ7/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recAOR2t1yplUONJ7/web/03.jpg",
         "thumb": "img/recAOR2t1yplUONJ7/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recAOR2t1yplUONJ7/web/04.jpg",
         "thumb": "img/recAOR2t1yplUONJ7/thumb/04.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 5,
         "web": "img/recAOR2t1yplUONJ7/web/05.jpg",
         "thumb": "img/recAOR2t1yplUONJ7/thumb/05.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 6,
         "web": "img/recAOR2t1yplUONJ7/web/06.jpg",
         "thumb": "img/recAOR2t1yplUONJ7/thumb/06.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recYnc8p4kf0gk4n4",
@@ -726,17 +974,21 @@
     "title": "持續大量滲水",
     "description": "狀況跟早上一樣，第二張照片是\n\n1. 左邊：原本接水的衛生紙\n2. 中間：我直接拿衛生紙敷了一下滴水處\n3. 右邊：用開水沾濕的衛生紙，比較顏色是否不同",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recYnc8p4kf0gk4n4/web/01.jpg",
         "thumb": "img/recYnc8p4kf0gk4n4/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recYnc8p4kf0gk4n4/web/02.jpg",
         "thumb": "img/recYnc8p4kf0gk4n4/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recfWbD9wXgjTokDb",
@@ -747,29 +999,39 @@
     "keyEvents": [
       "嚴重滲水"
     ],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recfWbD9wXgjTokDb/web/01.jpg",
         "thumb": "img/recfWbD9wXgjTokDb/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recfWbD9wXgjTokDb/web/02.jpg",
         "thumb": "img/recfWbD9wXgjTokDb/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recfWbD9wXgjTokDb/web/03.jpg",
         "thumb": "img/recfWbD9wXgjTokDb/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recfWbD9wXgjTokDb/web/04.jpg",
         "thumb": "img/recfWbD9wXgjTokDb/thumb/04.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 5,
         "web": "img/recfWbD9wXgjTokDb/web/05.jpg",
         "thumb": "img/recfWbD9wXgjTokDb/thumb/05.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recNM2zB4nHyuvF77",
@@ -780,13 +1042,15 @@
     "keyEvents": [
       "色素水測試"
     ],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recNM2zB4nHyuvF77/web/01.jpg",
         "thumb": "img/recNM2zB4nHyuvF77/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recoaXwlB6SWf5cNc",
@@ -795,13 +1059,15 @@
     "title": "漏水狀況改善",
     "description": "維修孔打開後，這裡的衛生紙沒有那麼濕了，現場看到的是禮拜三塞的，今天禮拜六，只有微微的濕",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recoaXwlB6SWf5cNc/web/01.jpg",
         "thumb": "img/recoaXwlB6SWf5cNc/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recNqYXUWR9dOCq9b",
@@ -812,25 +1078,33 @@
     "keyEvents": [
       "鑿開維修孔"
     ],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recNqYXUWR9dOCq9b/web/01.jpg",
         "thumb": "img/recNqYXUWR9dOCq9b/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recNqYXUWR9dOCq9b/web/02.jpg",
         "thumb": "img/recNqYXUWR9dOCq9b/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recNqYXUWR9dOCq9b/web/03.jpg",
         "thumb": "img/recNqYXUWR9dOCq9b/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recNqYXUWR9dOCq9b/web/04.jpg",
         "thumb": "img/recNqYXUWR9dOCq9b/thumb/04.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recn2RUGTKl3gdYob",
@@ -841,21 +1115,27 @@
     "keyEvents": [
       "水分量測"
     ],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recn2RUGTKl3gdYob/web/01.jpg",
         "thumb": "img/recn2RUGTKl3gdYob/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recn2RUGTKl3gdYob/web/02.jpg",
         "thumb": "img/recn2RUGTKl3gdYob/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recn2RUGTKl3gdYob/web/03.jpg",
         "thumb": "img/recn2RUGTKl3gdYob/thumb/03.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "rec5tovJOHfbKrvAf",
@@ -864,21 +1144,27 @@
     "title": "持續觀察",
     "description": "今天在現場的觀察，跟你之前的差不多，上方紅圈的衛生紙是全濕，中間是微濕，下方角落比之前又乾一點。我們再持續觀察。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/rec5tovJOHfbKrvAf/web/01.jpg",
         "thumb": "img/rec5tovJOHfbKrvAf/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/rec5tovJOHfbKrvAf/web/02.jpg",
         "thumb": "img/rec5tovJOHfbKrvAf/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/rec5tovJOHfbKrvAf/web/03.jpg",
         "thumb": "img/rec5tovJOHfbKrvAf/thumb/03.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recijegSFKfJX2GkR",
@@ -887,17 +1173,21 @@
     "title": "A濕透 BC半濕 其餘乾乾，更換 ABC 衛生紙",
     "description": "新貼的膠帶衛生紙掉落，幾乎是乾的，要塞了更多上緣的孔洞\n\n週五大雨，週六小雨，但管道間潮濕度沒有變化，可排除天氣造成漏水。\n",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recijegSFKfJX2GkR/web/01.jpg",
         "thumb": "img/recijegSFKfJX2GkR/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recijegSFKfJX2GkR/web/02.jpg",
         "thumb": "img/recijegSFKfJX2GkR/thumb/02.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recRfgThSETCrsbVt",
@@ -906,13 +1196,15 @@
     "title": "A濕透 BC半濕 其餘乾乾，更換 ABC 衛生紙，新貼的膠帶衛生紙也乾乾",
     "description": "",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recRfgThSETCrsbVt/web/01.jpg",
         "thumb": "img/recRfgThSETCrsbVt/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recksypWIY4a5SHnR",
@@ -921,13 +1213,15 @@
     "title": "A濕透 BC半濕 其餘乾乾，更換 ABC 衛生紙",
     "description": "",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recksypWIY4a5SHnR/web/01.jpg",
         "thumb": "img/recksypWIY4a5SHnR/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recQKTG1GrThnV23h",
@@ -938,13 +1232,15 @@
     "keyEvents": [
       "色素水測試"
     ],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recQKTG1GrThnV23h/web/01.jpg",
         "thumb": "img/recQKTG1GrThnV23h/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   },
   {
     "id": "recCnbUOlZDPMwuEr",
@@ -953,29 +1249,39 @@
     "title": "管道間施工負責人與樓上訪談",
     "description": "配管方式如上面手繪，但應該需要人工解釋。\n\n601 住戶有偶爾泡澡的習慣，也是平日主要是用的浴室，上方照片是這戶的浴缸，看起來排水沒接好。\n\n701 則是只有偶爾上廁所，因為兩戶打通，主要使用 703 （另一個管道間）的廁所。",
     "keyEvents": [],
-    "photos": [
+    "timestampSource": "exif-median",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recCnbUOlZDPMwuEr/web/01.jpg",
         "thumb": "img/recCnbUOlZDPMwuEr/thumb/01.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 2,
         "web": "img/recCnbUOlZDPMwuEr/web/02.jpg",
         "thumb": "img/recCnbUOlZDPMwuEr/thumb/02.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 3,
         "web": "img/recCnbUOlZDPMwuEr/web/03.jpg",
         "thumb": "img/recCnbUOlZDPMwuEr/thumb/03.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 4,
         "web": "img/recCnbUOlZDPMwuEr/web/04.jpg",
         "thumb": "img/recCnbUOlZDPMwuEr/thumb/04.jpg"
       },
       {
+        "kind": "photo",
+        "seq": 5,
         "web": "img/recCnbUOlZDPMwuEr/web/05.jpg",
         "thumb": "img/recCnbUOlZDPMwuEr/thumb/05.jpg"
       }
-    ],
-    "timestampSource": "exif-median"
+    ]
   },
   {
     "id": "recPYRpQkpyKh5NXd",
@@ -986,12 +1292,14 @@
     "keyEvents": [
       "嚴重滲水"
     ],
-    "photos": [
+    "timestampSource": "manual",
+    "media": [
       {
+        "kind": "photo",
+        "seq": 1,
         "web": "img/recPYRpQkpyKh5NXd/web/01.jpg",
         "thumb": "img/recPYRpQkpyKh5NXd/thumb/01.jpg"
       }
-    ],
-    "timestampSource": "manual"
+    ]
   }
 ]

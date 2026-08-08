@@ -1,17 +1,21 @@
 /**
  * Pipeline 主流程（GitHub Actions / 本機皆可跑：npm run sync）。
- * 撈未同步 record → 逐筆 [下載→解析時間→處理圖→Drive 同步→更新 entries.json]
+ * 撈未同步 record → 逐筆 [下載→分流照片/影片→解析時間→處理媒體→Drive 同步→更新 entries.json]
  * → 成功回寫 已同步=true、失敗寫 同步錯誤。缺時間的視為可修正、跳過不算硬失敗。
  */
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import type { DateTime } from 'luxon';
 import { fetchUnsynced, markSynced, markError } from './lib/airtable.ts';
-import { downloadPhotos } from './lib/download.ts';
+import { downloadAttachments } from './lib/download.ts';
 import { resolveTimestamp } from './lib/exif.ts';
+import { isImage, isVideo, clearRecordMedia } from './lib/media.ts';
 import { processPhotos } from './lib/images.ts';
+import { loadVideos, transcodeVideos, cleanupVideos, type VideoSource } from './lib/videos.ts';
 import { syncRecordToDrive } from './lib/drive.ts';
 import { loadEntries, buildEntry, upsertEntry, saveEntries } from './lib/entries.ts';
 import { ROOT } from './lib/config.ts';
+import type { DownloadedFile } from './lib/download.ts';
 
 /**
  * 本輪「實際新同步成功」的紀錄，寫到 repo 根 .sync-output.json，給 workflow 的
@@ -26,8 +30,25 @@ interface SyncedItem {
 }
 
 const NO_TIME_MSG =
-  '無法決定事件時間：照片沒有可用的 EXIF 拍攝時間（或多張時間差超過 2 小時），' +
-  '且未填「手動事件時間」。請補填手動時間後，取消「已同步」勾選以重新處理。';
+  '無法決定事件時間：照片沒有可用的 EXIF 拍攝時間、影片也讀不到拍攝時間' +
+  '（或多個檔案時間差超過 2 小時），且未填「手動事件時間」。' +
+  '請補填手動時間後，取消「已同步」勾選以重新處理。';
+
+/** 依 mime type 把附件分成照片與影片，序號用附件原始順序（1-based） */
+function splitAttachments(files: DownloadedFile[]): {
+  images: { file: DownloadedFile; seq: number }[];
+  videos: { file: DownloadedFile; seq: number }[];
+} {
+  const images: { file: DownloadedFile; seq: number }[] = [];
+  const videos: { file: DownloadedFile; seq: number }[] = [];
+  files.forEach((file, i) => {
+    const seq = i + 1;
+    if (isImage(file.type)) images.push({ file, seq });
+    else if (isVideo(file.type)) videos.push({ file, seq });
+    else console.warn(`  ↳ 略過不支援的附件 ${file.filename} (${file.type})`);
+  });
+  return { images, videos };
+}
 
 async function main(): Promise<void> {
   const records = await fetchUnsynced();
@@ -42,9 +63,19 @@ async function main(): Promise<void> {
 
   for (const r of records) {
     const label = `${r.recordId} ${r.title || '(無標題)'}`;
+    let videoSources: VideoSource[] = [];
     try {
-      const dl = await downloadPhotos(r.photos);
-      const ts = await resolveTimestamp(dl.map((d) => d.buffer), r.manualTimestamp);
+      const dl = await downloadAttachments(r.attachments);
+      const { images, videos } = splitAttachments(dl);
+
+      // 影片先落地 + 讀 metadata 時間，但還不轉檔 —— 缺事件時間的紀錄要能直接跳過，
+      // 不該白花好幾分鐘轉檔。
+      videoSources = await loadVideos(videos);
+      const ts = await resolveTimestamp(
+        images.map((i) => i.file.buffer),
+        r.manualTimestamp,
+        videoSources.map((v) => v.createdAt).filter((t): t is DateTime => t !== null),
+      );
 
       if (!ts) {
         await markError(r.recordId, NO_TIME_MSG);
@@ -53,14 +84,22 @@ async function main(): Promise<void> {
         continue;
       }
 
-      const photos = await processPhotos(r.recordId, dl);
+      // 先清乾淨再產，重新同步時才不會留下上一版的殘檔（照片與影片共用同一個目錄）
+      await clearRecordMedia(r.recordId);
+      const photoMedia = await processPhotos(r.recordId, images);
+      const videoMedia = await transcodeVideos(r.recordId, videoSources);
+      const media = [...photoMedia, ...videoMedia].sort((a, b) => a.seq - b.seq);
+
       await syncRecordToDrive(r, dl, ts);
-      entries = upsertEntry(entries, buildEntry(r, ts, photos));
+      entries = upsertEntry(entries, buildEntry(r, ts, media));
       await saveEntries(entries); // 每筆即存，中途失敗也不丟已完成的
       await markSynced(r.recordId);
 
       synced.push({ id: r.recordId, title: r.title, eventTimestamp: ts.iso });
-      console.log(`✓ ${label} — ${dl.length} 圖, 事件時間 ${ts.iso} (${ts.source})`);
+      console.log(
+        `✓ ${label} — ${photoMedia.length} 圖 / ${videoMedia.length} 影片, ` +
+          `事件時間 ${ts.iso} (${ts.source})`,
+      );
       ok++;
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
@@ -71,6 +110,8 @@ async function main(): Promise<void> {
       }
       console.error(`✗ ${label} — ${msg}`);
       failed++;
+    } finally {
+      await cleanupVideos(videoSources);
     }
   }
 
