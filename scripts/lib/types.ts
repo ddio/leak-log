@@ -60,8 +60,14 @@ export interface VideoMedia {
   seq: number;
   /** 例 img/recABC/video/03.mp4 */
   src: string;
-  /** 封面幀，例 img/recABC/video/03.jpg（長邊~600） */
+  /**
+   * 封面幀大圖，例 img/recABC/video/03.jpg（長邊 1280，與影片同尺寸）。
+   * 給 <video poster> 用：<video> 在 metadata 載入前是以 poster 的原始尺寸決定
+   * 版面大小的，poster 太小影片就會被縮在畫面中央一小塊。
+   */
   poster: string;
+  /** 封面幀縮圖，例 img/recABC/video/03.thumb.jpg（長邊~600），給時間軸/格狀清單用 */
+  thumb: string;
   /** 長度（秒，取到小數一位） */
   duration: number;
   /** 轉檔後的實際尺寸 */

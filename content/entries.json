@@ -456,7 +456,8 @@
         "poster": "img/recBv6lKvIlsGJheV/video/03.jpg",
         "duration": 35.5,
         "width": 720,
-        "height": 1280
+        "height": 1280,
+        "thumb": "img/recBv6lKvIlsGJheV/video/03.thumb.jpg"
       },
       {
         "kind": "video",
@@ -465,7 +466,8 @@
         "poster": "img/recBv6lKvIlsGJheV/video/04.jpg",
         "duration": 18.1,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "thumb": "img/recBv6lKvIlsGJheV/video/04.thumb.jpg"
       }
     ],
     "timestampSource": "exif-median"
@@ -505,7 +507,8 @@
         "poster": "img/receGRrCUbUN6l56K/video/04.jpg",
         "duration": 18.4,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "thumb": "img/receGRrCUbUN6l56K/video/04.thumb.jpg"
       }
     ],
     "timestampSource": "exif-median"

@@ -16,7 +16,10 @@ export interface VideoMedia {
   kind: 'video'
   seq: number
   src: string
+  /** 封面幀大圖，給 <video poster> 用（與影片同尺寸） */
   poster: string
+  /** 封面幀縮圖，給時間軸/格狀清單用 */
+  thumb: string
   /** 秒 */
   duration: number
   width: number
@@ -52,8 +55,8 @@ export function useEntry(id: string): Entry | undefined {
 export const isPhoto = (m: MediaItem): m is PhotoMedia => m.kind === 'photo'
 export const isVideo = (m: MediaItem): m is VideoMedia => m.kind === 'video'
 
-/** 縮圖：照片用 thumb、影片用 poster。兩者都是長邊 600 的 JPEG，可以混排 */
-export const mediaThumb = (m: MediaItem): string => (isPhoto(m) ? m.thumb : m.poster)
+/** 縮圖：照片與影片都有長邊 600 的 thumb，可以直接混排 */
+export const mediaThumb = (m: MediaItem): string => m.thumb
 
 /** 顯示用檔名：03.jpg / 03.mp4 */
 export const mediaName = (m: MediaItem): string =>

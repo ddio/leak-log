@@ -29,8 +29,13 @@ const run = promisify(execFile);
 const VIDEO_MAX = 1280;
 /** x264 品質，數字越大檔案越小；28 在這種靜態畫面的紀錄影片上肉眼無損 */
 const CRF = 28;
-/** poster 長邊，與照片 thumb 一致 */
-const POSTER_MAX = 600;
+/**
+ * poster 長邊。跟影片同尺寸，因為 <video> 在 metadata 載入前（preload="none"）
+ * 是用 poster 的原始尺寸決定版面大小的，poster 給 600 影片就只會顯示 600 寬。
+ */
+const POSTER_MAX = VIDEO_MAX;
+/** 縮圖長邊，與照片 thumb 一致 */
+const THUMB_MAX = 600;
 /** 單支影片的轉檔時間上限 */
 const TIMEOUT_MS = 10 * 60 * 1000;
 
@@ -152,6 +157,7 @@ export async function transcodeVideos(
     const n = seqPad(s.seq);
     const mp4 = join(dir, `${n}.mp4`);
     const jpg = join(dir, `${n}.jpg`);
+    const thumbJpg = join(dir, `${n}.thumb.jpg`);
 
     await ffmpeg([
       '-i', s.tmpPath,
@@ -181,14 +187,16 @@ export async function transcodeVideos(
 
     // 封面幀取 1 秒處（避開開頭常見的黑幀 / 對焦中畫面），短片就取正中間
     const posterAt = duration > 2 ? 1 : Math.max(0, duration / 2);
-    await ffmpeg([
-      '-ss', posterAt.toFixed(2),
-      '-i', mp4,
-      '-frames:v', '1',
-      '-vf', SCALE(POSTER_MAX),
-      '-q:v', '3',
-      jpg,
-    ]);
+    for (const [out, max] of [[jpg, POSTER_MAX], [thumbJpg, THUMB_MAX]] as const) {
+      await ffmpeg([
+        '-ss', posterAt.toFixed(2),
+        '-i', mp4,
+        '-frames:v', '1',
+        '-vf', SCALE(max),
+        '-q:v', '3',
+        out,
+      ]);
+    }
 
     const bytes = (await stat(mp4)).size;
     console.log(
@@ -201,6 +209,7 @@ export async function transcodeVideos(
       seq: s.seq,
       src: `img/${recordId}/video/${n}.mp4`,
       poster: `img/${recordId}/video/${n}.jpg`,
+      thumb: `img/${recordId}/video/${n}.thumb.jpg`,
       duration: Math.round(duration * 10) / 10,
       width,
       height,
