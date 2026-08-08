@@ -265,7 +265,14 @@ useSeoMeta({ title: '照片與影片檢視 · 漏水紀錄', robots: 'noindex' }
 
 <style scoped>
 .viewer {
-  min-height: 100vh;
+  /*
+    固定成一個視窗高：rail 是全站紀錄清單，會越長越高，用 min-height 的話
+    整頁會被 rail 撐開變成長頁面，而不是「一屏內的檢視器」。
+    改成固定高 + 內部各欄自己捲。dvh 讓手機網址列收合時不會跳動。
+  */
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--card);
   color: var(--text);
   display: flex;
@@ -344,8 +351,20 @@ useSeoMeta({ title: '照片與影片檢視 · 漏水紀錄', robots: 'noindex' }
 }
 .main {
   flex: 1;
+  /* flex item 預設 min-height:auto 不會縮到小於內容，不設 0 的話 rail 撐爆這裡 */
+  min-height: 0;
   display: flex;
   flex-wrap: wrap;
+}
+/*
+  三欄各自捲。因為 .main 是 wrap 容器，那一行的高度會跟著最高的內容長，
+  所以要明確給 max-height 才收得住。
+*/
+.rail,
+.stage,
+.info {
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 /* rail */
@@ -441,9 +460,13 @@ useSeoMeta({ title: '照片與影片檢視 · 漏水紀錄', robots: 'noindex' }
   object-fit: contain;
   display: block;
 }
-/* aspect-ratio 由 inline style 帶入實際尺寸，配上寬度就不會在載入時跳版 */
+/*
+  不要寫死 width：直式影片（例 720x1280）會被撐成超高的框、整個版面爆掉。
+  交給上面的 max-width / max-height 加 aspect-ratio（inline style 帶入真實尺寸）
+  自己收斂，橫式直式都能正確 fit 進 stage。
+*/
 .stage-video {
-  width: min(90vw, 1280px);
+  width: auto;
   height: auto;
   background: #000;
 }
@@ -628,6 +651,22 @@ useSeoMeta({ title: '照片與影片檢視 · 漏水紀錄', robots: 'noindex' }
 
 /* 手機版：rail 收進可收合選單，預設藏起來；stage / info 直接堆疊 */
 @media (max-width: 760px) {
+  /*
+    堆疊之後總高度本來就會超過一屏，改回整頁捲動。
+    留著固定高 + overflow:hidden 的話，下面的 info 會被直接切掉看不到。
+  */
+  .viewer {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  .rail,
+  .stage,
+  .info {
+    max-height: none;
+    overflow-y: visible;
+  }
   .rail-toggle {
     display: inline-flex;
   }
