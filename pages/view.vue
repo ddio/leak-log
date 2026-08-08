@@ -121,11 +121,38 @@ function onKey(e: KeyboardEvent) {
   }
 }
 
+/**
+ * 依 ?r=recordId&p=mediaIndex 跳到指定那張。只會生效一次。
+ *
+ * 為什麼要用 watch 而不是在 onMounted 讀一次就好：
+ * /view 是靜態預渲染的，而預渲染時的網址沒有 query。Nuxt hydration 過程中會先把
+ * 網址正規化回預渲染的路徑（實測 history 依序是
+ * `/view/?r=…&p=…` → `/view/?r=…&p=…` → `/view`（query 被剝掉）→ `/view/?r=…&p=…`），
+ * 元件正好在剝掉與還原之間掛載，所以那個瞬間 route.query 和 window.location.search
+ * 都是空的，一次性讀取必然落空（這也是舊版深連結永遠停在第一張的原因）。
+ * 改成觀察 query，等它出現再跳；已經跳過就不再重跳，不會干擾使用者後續的瀏覽。
+ */
+let jumped = false
+function applyQueryTarget(): void {
+  if (jumped) return
+  // route.query 與 location 取先有值的那個 —— 兩者在上述時序中會交替為空
+  const params = new URLSearchParams(window.location.search)
+  const r = (route.query.r as string | undefined) || params.get('r')
+  if (!r || !posById.has(r)) return
+  const raw = (route.query.p as string | undefined) ?? params.get('p') ?? ''
+  const p = parseInt(raw)
+  const rec = recordList[posById.get(r)!]
+  // p 夾在該則之內：go() 只做全域夾取，p 亂填會跳到別則去
+  const offset = Number.isNaN(p) ? 0 : Math.max(0, Math.min(rec.entry.media.length - 1, p))
+  jumped = true
+  go(rec.first + offset)
+}
+
 onMounted(() => {
   window.addEventListener('keydown', onKey)
-  const r = route.query.r as string | undefined
-  const p = parseInt(route.query.p as string)
-  if (r && posById.has(r)) go(recordList[posById.get(r)!].first + (Number.isNaN(p) ? 0 : p))
+  // 在 onMounted 內建立才不會在 SSR/hydration 階段就動 idx（會造成 hydration mismatch）；
+  // immediate 涵蓋「掛載當下 query 就已經正確」的情況。
+  watch(() => route.query, applyQueryTarget, { immediate: true })
   // 首張若尚未載入完成（慢速網路），也顯示 skeleton
   if (stageImg.value && !stageImg.value.complete) imgLoading.value = true
 })
